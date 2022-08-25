@@ -1,0 +1,30 @@
+
+###
+POST http://localhost:1337/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "grady@hamiltonproperty.group",
+  "password": "password"
+}
+
+> {% client.global.set("access_token", response.body.access_token); %}
+
+<> 2022-06-01T024021.201.json
+<> 2022-06-01T023413.201.json
+<> 2022-06-01T023337.401.json
+<> 2022-06-01T023331.401.json
+<> 2022-06-01T022937.401.json
+<> 2022-06-01T022930.401.json
+
+###
+
+POST http://localhost:1337/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "gil@hamiltonproperty.group",
+  "password": "password"
+}

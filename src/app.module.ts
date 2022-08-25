@@ -1,13 +1,31 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ScheduleModule } from '@nestjs/schedule';
-import { EarningsScraperController } from './earnings-scraper/earnings-scraper.controller';
-import { HttpModule } from '@nestjs/axios';
+import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import configuration from './configuration';
+import { ResponseCleanserPipe } from './shared/pipes/response-cleanser.pipe';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { GlobalInterceptor } from './shared/interceptors/global.interceptor';
+import { RoleModule } from './roles/role.module';
 
 @Module({
-  imports: [ScheduleModule.forRoot(), HttpModule],
-  controllers: [AppController, EarningsScraperController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      load: [configuration],
+      expandVariables: true,
+    }),
+    UsersModule,
+    AuthModule,
+    RoleModule,
+  ],
+  controllers: [AppController],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: GlobalInterceptor,
+    },
+    ResponseCleanserPipe,
+  ],
 })
 export class AppModule {}

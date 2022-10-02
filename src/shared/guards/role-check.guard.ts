@@ -25,6 +25,6 @@ export class RoleCheckGuard implements CanActivate {
         ? roles.every((requiredRole) => user.roles.includes(requiredRole))
         : roles.some((requiredRole) => user.roles.includes(requiredRole));
     }
-    return false;
+    return true;
   }
 }

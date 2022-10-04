@@ -8,6 +8,7 @@ import { ResponseCleanserPipe } from './shared/pipes/response-cleanser.pipe';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GlobalInterceptor } from './shared/interceptors/global.interceptor';
 import { RoleModule } from './roles/role.module';
+import { DatabaseModule } from './database.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { RoleModule } from './roles/role.module';
       load: [configuration],
       expandVariables: true,
     }),
+    DatabaseModule,
     UsersModule,
     AuthModule,
     RoleModule,

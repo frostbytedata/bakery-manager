@@ -1,48 +1,29 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { IsBoolean, IsDate, IsEmail, IsString, IsUUID } from 'class-validator';
-import { Role } from './Role';
+import { Column, Entity, JoinTable, ManyToMany, } from 'typeorm'
+import { IsBoolean, IsEmail, IsString } from 'class-validator'
+import { Role } from './Role'
+import { BaseEntity } from './Base'
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class User extends BaseEntity {
 
   @Column()
   @IsEmail()
-  email: string;
+  email: string
 
-  @Column({ select: false })
+  @Column({select: false})
   @IsString()
-  password: string;
+  password: string
 
-  @Column({ select: false })
+  @Column({select: false})
   @IsString()
-  salt: string;
+  salt: string
 
   @ManyToMany(() => Role)
   @JoinTable()
-  roles: Role[];
+  roles: Role[]
 
-  @Column({ default: true })
+  @Column({default: true})
   @IsBoolean()
-  isActive: boolean;
+  isActive: boolean
 
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt;
-
-  @DeleteDateColumn({ type: 'timestamp' })
-  @IsDate()
-  deletedAt: Date;
 }

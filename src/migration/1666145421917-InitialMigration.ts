@@ -15,10 +15,10 @@ export class InitialMigration1666145421917 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user_roles_role" ADD CONSTRAINT "FK_4be2f7adf862634f5f803d246b8" FOREIGN KEY ("roleId") REFERENCES "role"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
 
         // Create bootstrap user
-        // Login: `parker@hamiltonproperty.group`
+        // Login: `parker@somegreatapp.com`
         // Password: `password`
         await queryRunner.query(`INSERT INTO public.user (id, email, password, salt)
-                             VALUES (DEFAULT, 'parker@hamiltonproperty.group',
+                             VALUES (DEFAULT, 'parker@somegreatapp.com',
                                      '349d9d90ea62556d5df416fb91fac3d7dbc9461163f1e4df13a0f5d31e61e0abf39d8c36965d8498436967d3f89bcce6bb4bfca6e3679a9f62881bc6e18e2b5c',
                                      '23da02753f114cdd5099dc1d16df7a84b07bc28bb5d5ce8998b8e3cf51a05d10')`);
 

@@ -67,8 +67,18 @@ $ npm run test:cov
 
 ## Migrations
 
-Explain migrations here....
+Make sure your first migration runs before attempting to continue generating migrations.
 
+Use the following command to generate a new migration file after any change to entity structure:
+```bash
+$ npm run migrate:generate -- -n InitialMigration
+```
+
+Move up and down the migration history using the following commands:
+```bash
+$ npm run migrate:up
+$ npm run migrate:down
+```
 
 ## Use an API Route
 

@@ -18,4 +18,7 @@ export default () => ({
   jwt: {
     secret: process.env.JWT_SECRET,
   },
+  entitiesSourceDir: ['src/entity'],
+  migrationsSourceDir: ['src/migration'],
+  subscribersSourceDir: ['src/subscriber'],
 });

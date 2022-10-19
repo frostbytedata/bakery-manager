@@ -1,21 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { IsBoolean, IsDate, IsEmail, IsString, IsUUID } from 'class-validator';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { IsBoolean, IsEmail, IsString } from 'class-validator';
 import { Role } from './Role';
+import { BaseEntity } from './BaseEntity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseEntity {
   @Column()
   @IsEmail()
   email: string;
@@ -35,14 +24,4 @@ export class User {
   @Column({ default: true })
   @IsBoolean()
   isActive: boolean;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt;
-
-  @DeleteDateColumn({ type: 'timestamp' })
-  @IsDate()
-  deletedAt: Date;
 }

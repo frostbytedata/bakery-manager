@@ -4,7 +4,11 @@ import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 export class ResponseCleanserPipe implements PipeTransform {
   transform(responseData: any, metadata?: ArgumentMetadata) {
     const blacklist: string[] = ['password', 'salt'];
-    if (typeof responseData === 'object') {
+    if (
+      responseData &&
+      typeof responseData === 'object' &&
+      Object.entries(responseData)
+    ) {
       return Object.fromEntries(
         Object.entries(responseData).filter((entry) => {
           return !blacklist.includes(entry[0]);

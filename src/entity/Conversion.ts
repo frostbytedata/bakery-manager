@@ -1,25 +1,23 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
-import { IsDecimal } from 'class-validator'
-import { Unit } from './Unit'
-import { Ingredient } from './Ingredient'
-import { BaseEntity } from './Base'
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
+import { IsDecimal } from 'class-validator';
+import { Unit } from './Unit';
+import { Ingredient } from './Ingredient';
+import { BaseEntity } from './BaseEntity';
 
 @Entity()
 export class Conversion extends BaseEntity {
-
   @ManyToOne(() => Ingredient, (ingredient) => ingredient.conversions)
-  ingredient: Ingredient
+  ingredient: Ingredient;
 
   @ManyToMany(() => Unit)
   @JoinTable()
-  unit1: Unit[]
+  unit1: Unit[];
 
   @ManyToMany(() => Unit)
   @JoinTable()
-  unit2: Unit[]
+  unit2: Unit[];
 
   @Column()
   @IsDecimal()
-  rate: number
-
+  rate: number;
 }

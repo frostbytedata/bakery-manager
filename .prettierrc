@@ -1,5 +1,7 @@
 {
   "singleQuote": true,
   "trailingComma": "all",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "bracketSameLine": true,
+  "tailwindConfig": "./app/tailwind.config.js"
 }

@@ -7,7 +7,9 @@ import {
 } from 'typeorm';
 import { IsDate } from 'class-validator';
 
-@Entity()
+@Entity({
+  synchronize: false,
+})
 export class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

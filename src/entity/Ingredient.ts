@@ -1,21 +1,15 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
-import { Conversion } from './Conversion'
-import { Nameable } from './Nameable'
-import { Unit } from './Unit'
+import { Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { Conversion } from './Conversion';
+import { Unit } from './Unit';
+import { NameableEntity } from './NameableEntity';
 
 @Entity()
-export class Ingredient {
-
-  @Column(() => Nameable, {
-    prefix: false,
-  })
-  nameable: Nameable
-
+export class Ingredient extends NameableEntity {
   @OneToOne(() => Unit)
   @JoinColumn()
-  defaultUnit: Unit
+  defaultUnit: Unit;
 
-  @OneToMany(() => Conversion, (cnversion) => cnversion.ingredient)
-  conversions: Conversion[]
+  @OneToMany(() => Conversion, (conversion) => conversion.ingredient)
+  conversions: Conversion[];
 
 }

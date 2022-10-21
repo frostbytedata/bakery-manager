@@ -1,9 +1,9 @@
 <div
-  class="flex h-screen w-screen flex-col items-center justify-center bg-bm-background">
-  <div class="flex-none rounded-lg bg-bm-background-light p-16 drop-shadow-lg">
+  class="flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-br from-bm-yellow to-bm-brown">
+  <div class="flex-none rounded-lg bg-bm-background-light p-16 pb-4 drop-shadow-lg">
     <div class="flex flex-col gap-4">
       <div class="flex">
-        <h2 class="w-full text-center text-4xl text-bm-brown pb-4 drop-shadow-md">BakeBox</h2>
+        <h2 class="w-full text-center text-4xl text-bm-brown pb-6 drop-shadow-md">🥯 BakeBox 🥐</h2>
       </div>
       <div class="flex">
         <input type="text" placeholder="Email" />
@@ -12,7 +12,12 @@
         <input type="password" placeholder="Password" />
       </div>
       <div class="flex">
-        <button class="w-full p-2 button bg-bm-red rounded-md text-white">Login</button>
+        <button class="w-full p-2 button bg-bm-red rounded-md text-white" *ngIf="loginMode$ | async">Login</button>
+        <button class="w-full p-2 button bg-bm-red rounded-md text-white" *ngIf="!(loginMode$ | async)">Register</button>
+      </div>
+      <div class="flex text-center mt-4">
+        <a class="w-full" *ngIf="!(loginMode$ | async)" routerLink="/login">Login</a>
+        <a class="w-full" *ngIf="loginMode$ | async" routerLink="/register">Register</a>
       </div>
     </div>
   </div>

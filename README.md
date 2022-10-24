@@ -24,6 +24,7 @@ You should create some `.env` files in your project root that each contain your 
 See the file `.env-example` for an example of what values are required to be set.
 ```dotenv
 JWT_SECRET=some_random_string_of_characters
+ALLOWABLE_ORIGINS=['localhost:4200']
 DATABASE_URL=postgres://username:password@salt.db.elephantsql.com/dbname
 DATABASE_TYPE=mongodb
 TYPEORM_SYNCHRONIZE=false

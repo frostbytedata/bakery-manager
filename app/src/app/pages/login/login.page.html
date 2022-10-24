@@ -1,23 +1,47 @@
 <div
   class="flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-br from-bm-yellow to-bm-brown">
-  <div class="flex-none rounded-lg bg-bm-background-light p-16 pb-4 drop-shadow-lg">
+  <div
+    class="flex-none rounded-lg bg-bm-background-light p-16 pb-4 drop-shadow-lg">
     <div class="flex flex-col gap-4">
       <div class="flex">
-        <h2 class="w-full text-center text-4xl text-bm-brown pb-6 drop-shadow-md">🥯 BakeBox 🥐</h2>
+        <h2
+          class="w-full pb-6 text-center text-4xl text-bm-brown drop-shadow-md">
+          🥯 BakeBox 🥐
+        </h2>
       </div>
+      <form
+        class="flex flex-col gap-4"
+        [formGroup]="userForm">
+        <div class="flex">
+          <input formControlName="email" type="text" placeholder="Email" />
+        </div>
+        <div class="flex" *ngIf="userForm.contains('name')">
+          <input formControlName="name" type="text" placeholder="Name" />
+        </div>
+        <div class="flex">
+          <input
+            formControlName="password"
+            type="password"
+            placeholder="Password" />
+        </div>
+      </form>
       <div class="flex">
-        <input type="text" placeholder="Email" />
+        <button
+          class="button w-full rounded-md bg-bm-red p-2 text-white disabled:opacity-25"
+          (click)="submit()"
+          [disabled]="userForm.invalid || loading">
+          {{(loginMode$ | async) ? '🔒 Login' : '🖊 Register'}}
+        </button>
       </div>
-      <div class="flex">
-        <input type="password" placeholder="Password" />
+      <div class="mt-4 flex text-center" *ngIf="!!errorMessage">
+        <span class="w-full text-bm-red">{{errorMessage}}</span>
       </div>
-      <div class="flex">
-        <button class="w-full p-2 button bg-bm-red rounded-md text-white" *ngIf="loginMode$ | async">Login</button>
-        <button class="w-full p-2 button bg-bm-red rounded-md text-white" *ngIf="!(loginMode$ | async)">Register</button>
-      </div>
-      <div class="flex text-center mt-4">
-        <a class="w-full" *ngIf="!(loginMode$ | async)" routerLink="/login">Login</a>
-        <a class="w-full" *ngIf="loginMode$ | async" routerLink="/register">Register</a>
+      <div class="mt-4 flex text-center">
+        <a
+          class="w-full"
+          [routerLink]="[(loginMode$ | async) ? '/register' : '/login', { email: userForm.get('email')?.value }]">
+          {{(loginMode$ | async) ? 'Register' : 'Login'}}
+        </a>
       </div>
     </div>
   </div>

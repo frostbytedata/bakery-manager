@@ -15,6 +15,7 @@ export default () => ({
     migrations: ['dist/migration/*.js'],
     subscribers: ['dist/subscriber/*.js'],
   },
+  allowableOrigins: process.env.ALLOWABLE_ORIGINS,
   jwt: {
     secret: process.env.JWT_SECRET,
   },

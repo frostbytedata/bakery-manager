@@ -10,6 +10,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Get config service
   const configService = app.get(ConfigService);
+  // Configure CORS
+  app.enableCors({
+    origin: JSON.parse(configService.get('allowableOrigins')) || [],
+  });
   // Ensure all routes validate incoming data by default
   app.useGlobalPipes(
     new ValidationPipe({

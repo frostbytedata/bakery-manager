@@ -10,12 +10,17 @@ import {
 } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { Observable } from 'rxjs';
+import { HomePage } from './pages/home/home.page';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomePage,
   },
   {
     path: 'login',

@@ -5,3 +5,14 @@ export interface User extends BaseModel {
   roles: any[];
   isActive: boolean;
 }
+
+export interface UserLoginDto {
+  email: string;
+  password: string;
+}
+
+export interface UserRegisterDto {
+  email: string;
+  name: string;
+  password: string;
+}

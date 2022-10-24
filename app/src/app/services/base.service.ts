@@ -6,6 +6,7 @@ import {
   HttpHeaders,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -25,28 +26,35 @@ export class BaseService {
     this.updateHeaders();
   }
 
-  get(path: string, ignoreDeleted?: boolean): Observable<any> {
+  get(path: string): Observable<HttpResponse<any>> {
     this.updateHeaders();
-    if (ignoreDeleted) {
-      this.headers = this.headers.append('LB-Ignore-Delete', 'true');
-    }
-    return this.http.get(this.api + path, { headers: this.headers });
+    return this.http.get(this.api + path, {
+      headers: this.headers,
+      observe: 'response',
+    });
   }
 
-  post(path: string, data: any): Observable<any> {
+  post(path: string, data: any): Observable<HttpResponse<any>> {
     this.updateHeaders();
-    return this.http.post(this.api + path, data, { headers: this.headers });
+    return this.http.post(this.api + path, data, {
+      headers: this.headers,
+      observe: 'response',
+    });
   }
 
-  patch(path: string, data: any): Observable<any> {
+  patch(path: string, data: any): Observable<HttpResponse<any>> {
     this.updateHeaders();
-    return this.http.patch(this.api + path, data, { headers: this.headers });
+    return this.http.patch(this.api + path, data, {
+      headers: this.headers,
+      observe: 'response',
+    });
   }
 
-  delete(id: number, path: string): Observable<any> {
+  delete(id: number, path: string): Observable<HttpResponse<any>> {
     this.updateHeaders();
     return this.http.delete(this.api + path + '/' + id, {
       headers: this.headers,
+      observe: 'response',
     });
   }
 

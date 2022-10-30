@@ -11,6 +11,7 @@ import {
 import { LoginPage } from './pages/login/login.page';
 import { Observable } from 'rxjs';
 import { HomePage } from './pages/home/home.page';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 const routes: Routes = [
   {
@@ -19,8 +20,26 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    component: HomePage,
+    path: '',
+    component: NavigationComponent,
+    children: [
+      {
+        path: 'home',
+        component: HomePage,
+      },
+      {
+        path: 'recipes',
+        component: HomePage,
+      },
+      {
+        path: 'ingredients',
+        component: HomePage,
+      },
+      {
+        path: 'conversions',
+        component: HomePage,
+      },
+    ],
   },
   {
     path: 'login',
@@ -30,8 +49,11 @@ const routes: Routes = [
     path: 'register',
     component: LoginPage,
   },
+  {
+    path: '**',
+    component: LoginPage,
+  },
 ];
-
 
 @Injectable({
   providedIn: 'root',

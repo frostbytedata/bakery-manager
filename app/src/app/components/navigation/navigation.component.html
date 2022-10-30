@@ -1,0 +1,21 @@
+<div class="flex h-full h-screen w-full flex-row">
+  <nav class="flex bg-bm-background-light py-14 drop-shadow-md">
+    <ul>
+      <li class="my-4 mb-12 px-14 flex flex-row items-center justify-items-center">
+        <img src="assets/logo.svg" class="flex-1 w-40"/>
+      </li>
+      <li *ngFor="let item of menuItems">
+        <a class="flex flex-row items-center h-full px-14 py-4" [routerLink]="item.route" routerLinkActive="bg-bm-background-active">
+          <i class="{{item.icon}} flex mr-6 text-2xl"></i>
+          <span class="">{{item.label}}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="flex-1 flex-col">
+    <bm-toolbar class="flex"></bm-toolbar>
+    <div class="flex p-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

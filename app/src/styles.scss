@@ -3,7 +3,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Do+Hyeon&family=Fuzzy+Bubbles:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+html, body {
+  height: 100%;
+  width: 100%;
+  @apply bg-gradient-to-br from-bm-yellow to-bm-brown text-bm-dark-type;
+}
 
 @layer components {
   input {

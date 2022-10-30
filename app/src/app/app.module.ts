@@ -8,9 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePage } from './pages/home/home.page';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginPage, HomePage],
+  declarations: [AppComponent, LoginPage, HomePage, NavigationComponent, ToolbarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

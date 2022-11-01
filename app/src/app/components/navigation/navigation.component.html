@@ -1,13 +1,17 @@
 <div class="flex h-full h-screen w-full flex-row">
-  <nav class="flex bg-bm-background-light py-14 drop-shadow-md">
+  <nav class="flex bg-bm-background_light py-14 drop-shadow-md">
     <ul>
-      <li class="my-4 mb-12 px-14 flex flex-row items-center justify-items-center">
-        <img src="assets/logo.svg" class="flex-1 w-40"/>
+      <li
+        class="my-4 mb-12 flex flex-row items-center justify-items-center px-14">
+        <img src="assets/logo.svg" class="w-40 flex-1" />
       </li>
       <li *ngFor="let item of menuItems">
-        <a class="flex flex-row items-center h-full px-14 py-4" [routerLink]="item.route" routerLinkActive="bg-bm-background-active">
-          <i class="{{item.icon}} flex mr-6 text-2xl"></i>
-          <span class="">{{item.label}}</span>
+        <a
+          class="flex h-full flex-row items-center px-14 py-4"
+          [routerLink]="item.route"
+          routerLinkActive="bg-bm-background_active">
+          <i class="{{ item.icon }} flex mr-6 text-2xl"></i>
+          <span class="">{{ item.label }}</span>
         </a>
       </li>
     </ul>

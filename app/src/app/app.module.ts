@@ -10,9 +10,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomePage } from './pages/home/home.page';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { LowIngredientsComponent } from './components/widgets/low-ingredients/low-ingredients.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginPage, HomePage, NavigationComponent, ToolbarComponent],
+  declarations: [
+    AppComponent,
+    LoginPage,
+    HomePage,
+    NavigationComponent,
+    ToolbarComponent,
+    LowIngredientsComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

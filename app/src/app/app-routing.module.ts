@@ -25,33 +25,39 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
+        title: 'Home',
         component: HomePage,
       },
       {
         path: 'recipes',
+        title: 'Recipes',
         component: HomePage,
       },
       {
         path: 'ingredients',
+        title: 'Ingredients',
         component: HomePage,
       },
       {
         path: 'conversions',
+        title: 'Conversions',
         component: HomePage,
       },
     ],
   },
   {
     path: 'login',
+    title: 'Login',
     component: LoginPage,
   },
   {
     path: 'register',
+    title: 'Register',
     component: LoginPage,
   },
   {
     path: '**',
-    component: LoginPage,
+    redirectTo: '/login',
   },
 ];
 

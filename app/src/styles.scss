@@ -9,7 +9,7 @@
 html, body {
   height: 100%;
   width: 100%;
-  @apply bg-gradient-to-br from-bm-yellow to-bm-brown text-bm-dark-type;
+  @apply bg-gradient-to-br from-bm-yellow to-bm-brown text-bm-dark_type;
 }
 
 @layer components {
@@ -20,3 +20,8 @@ html, body {
     @apply outline-0;
   }
 }
+
+.bm-widget-container {
+  @apply rounded-3xl bg-gradient-to-br from-bm-offwhite to-bm-background_light outline outline-2 outline-offset-2 outline-bm-background_light;
+}
+

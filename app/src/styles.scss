@@ -6,12 +6,6 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Do+Hyeon&family=Fuzzy+Bubbles:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-html, body {
-  height: 100%;
-  width: 100%;
-  @apply bg-gradient-to-br from-bm-yellow to-bm-brown text-bm-dark_type;
-}
-
 @layer components {
   input {
     @apply p-4 shadow-md rounded-md w-full;
@@ -19,6 +13,53 @@ html, body {
   input:focus, textarea:focus {
     @apply outline-0;
   }
+}
+
+
+html, body {
+  height: 100%;
+  width: 100%;
+  @apply bg-gradient-to-br from-bm-yellow to-bm-brown text-bm-dark_type;
+}
+
+table {
+  @apply w-full rounded-3xl border-collapse;
+}
+
+table thead {
+  @apply bg-bm-background_active h-12;
+}
+table thead tr {
+  @apply text-left;
+}
+table thead tr th {
+  @apply p-4;
+}
+table tbody tr {
+  @apply odd:bg-gray-200;
+}
+table tbody tr td {
+  @apply p-4;
+}
+
+/* top-left border-radius */
+table tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
 }
 
 .bm-widget-container {

@@ -12,12 +12,14 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LowIngredientsComponent } from './components/widgets/low-ingredients/low-ingredients.component';
 import { JWTInterceptor } from './services/base.service';
+import { IngredientsPage } from './pages/ingredients/ingredients.page';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPage,
     HomePage,
+    IngredientsPage,
     NavigationComponent,
     ToolbarComponent,
     LowIngredientsComponent,

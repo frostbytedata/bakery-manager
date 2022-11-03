@@ -12,6 +12,7 @@ import { LoginPage } from './pages/login/login.page';
 import { Observable } from 'rxjs';
 import { HomePage } from './pages/home/home.page';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { IngredientsPage } from './pages/ingredients/ingredients.page';
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
       {
         path: 'ingredients',
         title: 'Ingredients',
-        component: HomePage,
+        component: IngredientsPage,
       },
       {
         path: 'conversions',

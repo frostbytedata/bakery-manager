@@ -18,6 +18,7 @@ export default () => ({
   allowableOrigins: process.env.ALLOWABLE_ORIGINS,
   jwt: {
     secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRY,
   },
   entitiesSourceDir: ['src/entity'],
   migrationsSourceDir: ['src/migration'],

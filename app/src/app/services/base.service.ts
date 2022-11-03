@@ -8,21 +8,21 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { UserStore } from '../store/user.store';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseService {
   api: string = environment.apiUrl;
-  token: string = '';
   headers: HttpHeaders = new HttpHeaders();
   jwtParser: JwtHelperService = new JwtHelperService();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userStore: UserStore) {
     this.updateHeaders();
   }
 
@@ -58,25 +58,32 @@ export class BaseService {
     });
   }
 
-  setToken(token: string) {
-    localStorage.setItem('token', token);
-    this.updateHeaders();
+  public retrieveToken(): string | null {
+    return localStorage.getItem('accessToken');
   }
 
-  forgetToken() {
-    this.token = '';
+  public setToken(token: string): void {
+    localStorage.setItem('accessToken', token);
+  }
+
+  public tokenExpired(): boolean {
+    const token = this.retrieveToken();
+    if (token !== undefined && token !== null) {
+      return this.jwtParser.isTokenExpired(token);
+    } else {
+      return true;
+    }
   }
 
   private updateHeaders() {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    const token = localStorage.getItem('token');
-    if (token) {
-      if (!this.jwtParser.isTokenExpired(token)) {
-        this.token = token;
-        this.headers = this.headers.append('Authorization', token);
-      }
+    if (!this.tokenExpired()) {
+      this.headers = this.headers.append(
+        'Authorization',
+        'Bearer ' + this.retrieveToken(),
+      );
     }
   }
 }
@@ -84,16 +91,20 @@ export class BaseService {
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class JWTInterceptor implements HttpInterceptor {
+  constructor(private baseService: BaseService) {
+  }
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: any, caught: Observable<HttpEvent<any>>) => {
-        if (error.status === 401) {
-          console.error(error.error.name);
-          console.error(error.error.message);
+        if (error.status === 401 && this.baseService.tokenExpired()) {
+          console.error('HttpInterceptor Detected Expired Token');
         }
+        console.error(error.error.name);
+        console.error(error.error.message);
         throw error;
       }),
     );

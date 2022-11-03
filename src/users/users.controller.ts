@@ -8,6 +8,8 @@ import {
   Delete,
   Request,
   UseGuards,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,6 +18,7 @@ import * as crypto from 'crypto';
 import { AuthService } from '../auth/auth.service';
 import { PaginationOptions } from '../shared/types/pagination-options';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { User } from '../shared/decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -37,6 +40,16 @@ export class UsersController {
       salt.toString('hex'),
     );
     return this.usersService.create({ ...createUserDto, ...defaults });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('self')
+  getSelf(@Request() request, @User() user) {
+    if (user.id) {
+      return this.usersService.findOne(user.id);
+    } else {
+      throw new HttpException("Can't get current user", HttpStatus.BAD_REQUEST);
+    }
   }
 
   @UseGuards(JwtAuthGuard)

@@ -20,6 +20,18 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:1337/users/2
+Accept: application/json
+Authorization: Bearer {{access_token}}
+###
+
+###
+
+GET http://localhost:1337/users/self
+Accept: application/json
+Authorization: Bearer {{access_token}}
+###
+
 POST http://localhost:1337/users
 Accept: application/json
 Content-Type: application/json

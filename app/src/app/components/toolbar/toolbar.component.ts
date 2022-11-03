@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserStore } from '../../store/user.store';
 
 @Component({
   selector: 'bm-toolbar',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected userStore: UserStore) { }
 
   ngOnInit(): void {
   }

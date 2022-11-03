@@ -18,14 +18,19 @@ export class UserService extends UnsubscribeOnDestroyAdapter {
   ) {
     super();
   }
-  getUser(id: number) {
-    return this.baseService.get(this.baseService.api + '/user/' + id);
+  getSelf() {
+    return this.baseService.get('/users/self').subscribe((userResponse) => {
+      this.userStore.modify('user', userResponse?.body);
+    });
   }
   login(loginPayload: UserLoginDto) {
     return this.baseService.post('/auth/login/', loginPayload).pipe(
       tap((loginResult: HttpResponse<any>): void => {
         if (loginResult.status === 201) {
-          this.userStore.modify('user', loginResult.body);
+          if (loginResult?.body?.access_token) {
+            this.baseService.setToken(loginResult?.body?.access_token);
+            this.getSelf();
+          }
           this.router.navigate(['/home']);
         }
       }),

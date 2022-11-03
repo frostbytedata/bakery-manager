@@ -7,6 +7,7 @@ import { User, UserLoginDto, UserRegisterDto } from '../models/user.model';
 export class UserStore {
   private readonly _data: any = {
     user: {} as User,
+    accessToken: '',
     loginForm: {} as UserLoginDto,
     registerForm: {} as UserRegisterDto,
   };
@@ -19,8 +20,12 @@ export class UserStore {
   ngOnInit() {}
 
   modify(propertyName: string, newValue: any) {
-    if (this._data[propertyName] && newValue) {
-      this._data[propertyName] = Object.assign({}, newValue);
+    if (this._data.hasOwnProperty(propertyName) && newValue) {
+      if (typeof newValue === 'string' || typeof newValue === 'number') {
+        this._data[propertyName] = newValue;
+      } else {
+        this._data[propertyName] = Object.assign({}, newValue);
+      }
     }
   }
 }

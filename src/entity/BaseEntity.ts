@@ -1,11 +1,12 @@
 import {
+  Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IsDate } from 'class-validator';
+import { IsBoolean, IsDate } from 'class-validator';
 
 @Entity({
   synchronize: false,
@@ -14,11 +15,19 @@ export class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({
+    default: false,
+  })
+  @IsBoolean()
+  global: boolean;
+
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt;
+  @IsDate()
+  updatedAt: Date;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt;
+  @IsDate()
+  createdAt: Date;
 
   @DeleteDateColumn({ type: 'timestamp' })
   @IsDate()

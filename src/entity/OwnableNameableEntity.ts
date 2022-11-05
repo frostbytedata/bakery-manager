@@ -1,4 +1,4 @@
-import { Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { NameableEntity } from './NameableEntity';
 import { User } from './User';
 
@@ -8,4 +8,7 @@ import { User } from './User';
 export class OwnableNameableEntity extends NameableEntity {
   @ManyToOne(() => User)
   user: User;
+
+  @Column({ nullable: true })
+  userId: number;
 }

@@ -8,7 +8,8 @@ import { ResponseCleanserPipe } from './shared/pipes/response-cleanser.pipe';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GlobalInterceptor } from './shared/interceptors/global.interceptor';
 import { RoleModule } from './roles/role.module';
-import { DatabaseModule } from './database.module'
+import { DatabaseModule } from './database.module';
+import { IngredientModule } from './ingredients/ingredient.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { DatabaseModule } from './database.module'
     UsersModule,
     AuthModule,
     RoleModule,
+    IngredientModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,0 +1,30 @@
+
+###
+POST http://localhost:1337/ingredient
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "Flour",
+  "description": "A fine, powdery foodstuff obtained by grinding and sifting the meal of a grain, especially wheat, used chiefly in baking.",
+  "defaultUnitId": 3
+}
+
+<> 2022-06-01T024021.201.json
+<> 2022-06-01T023413.201.json
+<> 2022-06-01T023337.401.json
+<> 2022-06-01T023331.401.json
+<> 2022-06-01T022937.401.json
+<> 2022-06-01T022930.401.json
+
+###
+
+GET http://localhost:1337/ingredient/1
+Accept: application/json
+Authorization: Bearer {{access_token}}
+###
+
+GET http://localhost:1337/ingredient
+Accept: application/json
+Authorization: Bearer {{access_token}}

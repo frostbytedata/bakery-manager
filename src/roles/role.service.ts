@@ -1,17 +1,12 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import {
-  getConnection,
-  getRepository,
-  MongoRepository,
-  Repository,
-  TreeRepository,
-} from 'typeorm';
+import { MongoRepository, Repository, TreeRepository } from 'typeorm';
 import { Role } from '../entity/Role';
 import { PaginationOptions } from '../shared/types/pagination-options';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { AssignRoleDto } from './dto/assign-role.dto';
 import { User } from '../entity/User';
+import { dataSource } from '../database.providers';
 
 @Injectable()
 export class RoleService implements OnApplicationBootstrap {
@@ -21,7 +16,7 @@ export class RoleService implements OnApplicationBootstrap {
   constructor() {}
 
   onApplicationBootstrap() {
-    this.repo = getRepository(Role);
+    this.repo = dataSource.getRepository(Role);
   }
 
   async create(createRoleDto: CreateRoleDto) {
@@ -31,7 +26,7 @@ export class RoleService implements OnApplicationBootstrap {
   }
 
   async assign(assignRoleDto: AssignRoleDto) {
-    return await getConnection()
+    return await dataSource
       .createQueryBuilder()
       .relation(User, 'roles')
       .of(assignRoleDto.userId)
@@ -39,7 +34,7 @@ export class RoleService implements OnApplicationBootstrap {
   }
 
   async unassign(assignRoleDto: AssignRoleDto) {
-    return await getConnection()
+    return await dataSource
       .createQueryBuilder()
       .relation(User, 'roles')
       .of(assignRoleDto.userId)

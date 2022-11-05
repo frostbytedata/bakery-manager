@@ -5,6 +5,12 @@ import 'reflect-metadata'; // Required for typeorm: https://typeorm.io/#/
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 
+const isDev =
+  process.env.NODE_ENV === 'development' ||
+  process.env.NODE_ENV === 'dev' ||
+  process.env.NODE_ENV === undefined ||
+  process.env.NODE_ENV === null;
+
 async function bootstrap() {
   // Create app object
   const app = await NestFactory.create(AppModule);
@@ -19,7 +25,7 @@ async function bootstrap() {
     new ValidationPipe({
       forbidUnknownValues: true,
       whitelist: true,
-      forbidNonWhitelisted: true,
+      enableDebugMessages: isDev,
     }),
   );
   try {
@@ -44,7 +50,7 @@ const pre_bs = Date.now();
 bootstrap()
   .then((app) =>
     console.info(
-      `Application running. Startup took ${
+      `Application running in ${isDev ? 'dev' : 'non-dev'} mode. Startup took ${
         (Date.now() - pre_bs) / 1000
       } seconds`,
     ),

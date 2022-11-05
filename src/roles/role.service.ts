@@ -6,6 +6,7 @@ import {
   Repository,
   TreeRepository,
 } from 'typeorm';
+import { dataSource } from '../database.providers';
 import { Role } from '../entity/Role';
 import { PaginationOptions } from '../shared/types/pagination-options';
 import { CreateRoleDto } from './dto/create-role.dto';
@@ -21,7 +22,7 @@ export class RoleService implements OnApplicationBootstrap {
   constructor() {}
 
   onApplicationBootstrap() {
-    this.repo = getRepository(Role);
+    this.repo = dataSource.getRepository(Role);
   }
 
   async create(createRoleDto: CreateRoleDto) {
@@ -31,7 +32,7 @@ export class RoleService implements OnApplicationBootstrap {
   }
 
   async assign(assignRoleDto: AssignRoleDto) {
-    return await getConnection()
+    return await dataSource
       .createQueryBuilder()
       .relation(User, 'roles')
       .of(assignRoleDto.userId)
@@ -39,7 +40,7 @@ export class RoleService implements OnApplicationBootstrap {
   }
 
   async unassign(assignRoleDto: AssignRoleDto) {
-    return await getConnection()
+    return await dataSource
       .createQueryBuilder()
       .relation(User, 'roles')
       .of(assignRoleDto.userId)

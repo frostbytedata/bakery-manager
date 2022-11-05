@@ -15,6 +15,7 @@ module.exports = {
         'bm-green': '#81b29a',
         'bm-yellow': '#f2cc8f',
         'bm-offwhite': '#f3f3f3',
+        'bm-outline_highlight': '#ffd5a2',
         'bm-background_light': '#f4f1de',
         'bm-background_active': '#e7be886e',
         'bm-background': '#2f4b6a',

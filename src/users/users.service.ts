@@ -1,14 +1,10 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import {
-  getRepository,
-  MongoRepository,
-  Repository,
-  TreeRepository,
-} from 'typeorm';
+import { MongoRepository, Repository, TreeRepository } from 'typeorm';
 import { User } from '../entity/User';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationOptions } from '../shared/types/pagination-options';
+import { dataSource } from '../database.providers';
 
 @Injectable()
 export class UsersService implements OnApplicationBootstrap {
@@ -18,7 +14,7 @@ export class UsersService implements OnApplicationBootstrap {
   constructor() {}
 
   onApplicationBootstrap() {
-    this.repo = getRepository(User);
+    this.repo = dataSource.getRepository(User);
   }
 
   async create(createUserDto: CreateUserDto) {

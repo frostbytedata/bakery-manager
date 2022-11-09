@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
 import { Ingredient } from '../../models/ingredient.model';
 import { IngredientService } from '../../services/ingredient.service';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'bm-ingredients',
@@ -15,6 +15,7 @@ export class IngredientsPage
   implements OnInit
 {
   ingredients: Ingredient[] = [];
+  loading = true;
   constructor(
     public route: ActivatedRoute,
     private ingredientService: IngredientService,
@@ -25,9 +26,19 @@ export class IngredientsPage
   ngOnInit(): void {
     this.ingredientService
       .getAll()
-      .pipe(map((resp: HttpResponse<any>) => resp?.body?.data))
+      .pipe(
+        tap(() => {
+          this.loading = true;
+        }),
+        map((resp: HttpResponse<any>) => resp?.body?.data),
+      )
       .subscribe((ings: Ingredient[]) => {
         this.ingredients = ings;
+        this.loading = false;
       });
+  }
+
+  openEditModal(event: Event) {
+    console.info('openEditModal', event);
   }
 }

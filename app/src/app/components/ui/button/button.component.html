@@ -1,0 +1,8 @@
+<button
+  class="flex flex-row items-center rounded-xl bg-bm-accent leading-tight py-3 px-5 text-bm-offwhite text-lg hover:saturate-200"
+  (click)="bmClick.emit($event)">
+  <i class="grow mr-2" *ngIf="icon" [class]="icon"></i>
+  <div class="grow">
+    <ng-content></ng-content>
+  </div>
+</button>

@@ -1,8 +1,9 @@
 <button
-  class="flex flex-row items-center rounded-xl bg-bm-accent leading-tight py-3 px-5 text-bm-offwhite text-lg hover:saturate-200"
-  (click)="bmClick.emit($event)">
-  <i class="grow mr-2" *ngIf="icon" [class]="icon"></i>
-  <div class="grow">
+  class="flex w-full flex-row items-center justify-center rounded-xl bg-bm-accent py-3 px-5 text-lg leading-tight text-bm-offwhite disabled:saturate-50 disabled:opacity-75 hover:saturate-200"
+  (click)="bmClick.emit($event)"
+  [disabled]="disabled">
+  <i class="mr-2 shrink" *ngIf="icon" [class]="icon"></i>
+  <div class="shrink">
     <ng-content></ng-content>
   </div>
 </button>

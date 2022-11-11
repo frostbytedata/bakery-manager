@@ -12,17 +12,13 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LowIngredientsComponent } from './components/widgets/low-ingredients/low-ingredients.component';
 import { JWTInterceptor } from './services/base.service';
-import { IngredientsPage } from './pages/ingredients/ingredients.page';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppMaterialModule } from './app-material.module';
-import { UiComponentsModule } from './components/ui/ui-components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPage,
     HomePage,
-    IngredientsPage,
     NavigationComponent,
     ToolbarComponent,
     LowIngredientsComponent,
@@ -33,8 +29,6 @@ import { UiComponentsModule } from './components/ui/ui-components.module';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AppMaterialModule,
-    UiComponentsModule,
   ],
   providers: [
     UserService,

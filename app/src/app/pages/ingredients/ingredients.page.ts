@@ -5,6 +5,7 @@ import { Ingredient } from '../../models/ingredient.model';
 import { IngredientService } from '../../services/ingredient.service';
 import { map, tap } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
+import { AddIngredientDialogService } from '../../components/add-ingredient/add-ingredient.dialog.service';
 @Component({
   selector: 'bm-ingredients',
   templateUrl: './ingredients.page.html',
@@ -19,6 +20,7 @@ export class IngredientsPage
   constructor(
     public route: ActivatedRoute,
     private ingredientService: IngredientService,
+    private addIngredientDialogService: AddIngredientDialogService
   ) {
     super();
   }
@@ -36,9 +38,11 @@ export class IngredientsPage
         this.ingredients = ings;
         this.loading = false;
       });
+    this.addIngredientDialogService.open();
   }
 
   openEditModal(event: Event) {
     console.info('openEditModal', event);
+    this.addIngredientDialogService.open();
   }
 }

@@ -39,15 +39,27 @@ $app-theme: mat.define-light-theme((
 @tailwind utilities;
 
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Do+Hyeon&family=Fuzzy+Bubbles:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
 @layer components {
   input {
-    @apply p-4 shadow-md rounded-md w-full;
+    @apply p-3 shadow-md rounded-md w-full;
   }
   input:focus, textarea:focus {
-    @apply outline-0;
+    @apply outline-0 scale-105 transition ease-in-out duration-300;
   }
+  select {
+    @apply p-3 shadow-md rounded-md w-full;
+  }
+  select:focus {
+    @apply outline-0 scale-105 transition ease-in-out duration-300;
+  }
+  select option{
+    @apply p-10
+  }
+
+}
+.ng-touched.ng-invalid:not(form) {
+  @apply border-l-4 border-bm-error;
 }
 
 
@@ -97,6 +109,24 @@ table tr:last-child td:last-child {
   border-bottom-right-radius: 12px;
 }
 
+.bm-border-outline {
+  @apply outline outline-2 outline-offset-2 outline-bm-outline_highlight
+}
+
+.bm-gradient-background {
+  @apply bg-gradient-to-br from-bm-offwhite to-bm-background_light
+}
+
+.bm-gradient-background-alt {
+  @apply bg-gradient-to-br from-bm-background_light to-bm-background_alt
+}
+
 .bm-widget-container {
-  @apply rounded-3xl bg-gradient-to-br from-bm-offwhite to-bm-background_light outline outline-2 outline-offset-2 outline-bm-outline_highlight;
+  @apply rounded-3xl bm-gradient-background bm-border-outline;
+}
+
+.custom-dialog-class {
+  mat-dialog-container {
+    @apply bm-gradient-background-alt bm-border-outline rounded-xl p-12;
+  }
 }

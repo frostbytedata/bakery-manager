@@ -36,8 +36,10 @@ const routes: Routes = [
       },
       {
         path: 'ingredients',
-        title: 'Ingredients',
-        component: IngredientsPage,
+        loadChildren: () =>
+          import('./pages/ingredients/ingredients.page.module').then(
+            (m) => m.IngredientsPageModule,
+          ),
       },
       {
         path: 'conversions',

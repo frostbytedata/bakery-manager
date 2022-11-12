@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './BaseEntity';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 @Entity({
   synchronize: false,
@@ -10,7 +10,8 @@ export class NameableEntity extends BaseEntity {
   @IsString()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
+  @IsOptional()
   @IsString()
   description: string;
 }

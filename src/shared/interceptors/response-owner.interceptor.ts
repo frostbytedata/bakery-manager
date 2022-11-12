@@ -28,14 +28,19 @@ export abstract class ResponseOwnerInterceptor implements NestInterceptor {
         // owned by the current user.
         if (responseData?.data && responseData.data.length > 0) {
           responseData.data = responseData.data.filter(
-            (resource) => resource[this.resourceIdField] === userId,
+            (resource) =>
+              resource[this.resourceIdField] === userId ||
+              resource.global === true,
           );
           responseData.total = responseData.data.length;
           return responseData;
         }
         // If this is a single piece of data, ensure
         // the user owns it. If not, throw forbidden exception
-        if (userId !== responseData[this.resourceIdField]) {
+        if (
+          userId !== responseData[this.resourceIdField] &&
+          responseData.global !== true
+        ) {
           throw new ForbiddenException(
             'Resource not owned by user',
             'This resource is not owned by the current user.',
@@ -50,6 +55,7 @@ export abstract class ResponseOwnerInterceptor implements NestInterceptor {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const MustOwnResponse = (resourceIdField: string): any =>
   mixin(

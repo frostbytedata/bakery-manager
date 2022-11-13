@@ -26,7 +26,7 @@ export abstract class ResponseOwnerInterceptor implements NestInterceptor {
         }
         // If we are receiving an array of data, filter out results not
         // owned by the current user.
-        if (responseData?.data && responseData.data.length > 0) {
+        if (responseData?.data && responseData.data.length !== undefined) {
           responseData.data = responseData.data.filter(
             (resource) => resource[this.resourceIdField] === userId,
           );
@@ -50,6 +50,7 @@ export abstract class ResponseOwnerInterceptor implements NestInterceptor {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export const MustOwnResponse = (resourceIdField: string): any =>
   mixin(

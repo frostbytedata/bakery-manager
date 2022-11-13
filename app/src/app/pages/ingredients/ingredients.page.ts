@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
 import { Ingredient } from '../../models/ingredient.model';
 import { IngredientService } from '../../services/ingredient.service';
-import { map, tap } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
+import { tap } from 'rxjs';
 import { AddIngredientDialogService } from '../../components/add-ingredient/add-ingredient.dialog.service';
 @Component({
   selector: 'bm-ingredients',
@@ -18,31 +16,37 @@ export class IngredientsPage
   ingredients: Ingredient[] = [];
   loading = true;
   constructor(
-    public route: ActivatedRoute,
     private ingredientService: IngredientService,
-    private addIngredientDialogService: AddIngredientDialogService
+    private addIngredientDialogService: AddIngredientDialogService,
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.ingredientService
+    this.subs.sink = this.ingredientService
       .getAll()
       .pipe(
         tap(() => {
           this.loading = true;
         }),
-        map((resp: HttpResponse<any>) => resp?.body?.data),
       )
-      .subscribe((ings: Ingredient[]) => {
-        this.ingredients = ings;
-        this.loading = false;
+      .subscribe({
+        next: (ings: Ingredient[]) => {
+          this.ingredients = ings;
+          this.loading = false;
+        },
+        error: (error) => {
+          console.log(error);
+          this.loading = false;
+        },
       });
-    this.addIngredientDialogService.open();
   }
 
   openEditModal(event: Event) {
     console.info('openEditModal', event);
-    this.addIngredientDialogService.open();
+    const dialogRef = this.addIngredientDialogService.open();
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Ingredient } from '../models/ingredient.model';
 import { BaseStore } from './base.store';
+import { Unit } from '../models/unit.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class IngredientStore extends BaseStore {
+export class UnitStore extends BaseStore {
   constructor() {
     super({
-      ingredients: [] as Ingredient[],
+      units: [] as Unit[],
     });
   }
 }

@@ -1,5 +1,5 @@
 <div class="grid grid-cols-3 gap-4">
-  <div class="col-span-2">
+  <div class="col-span-3">
     <div class="bm-widget-container flex flex-col gap-4 p-6">
       <div class="flex flex-row justify-between items-center">
         <h3 class="text-3xl px-2">Ingredient List</h3>
@@ -20,7 +20,7 @@
           <tr class="hover:cursor-pointer" *ngFor="let ingredient of ingredients">
             <td>{{ingredient.name}}</td>
             <td>{{ingredient.description}}</td>
-            <td>{{ingredient.defaultUnit.name}}s ({{ingredient.defaultUnit.abbr}})</td>
+            <td>{{ingredient.defaultUnit?.name}}s ({{ingredient.defaultUnit?.abbr}})</td>
           </tr>
         </tbody>
       </table>

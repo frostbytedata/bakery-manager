@@ -22,13 +22,10 @@
       type="text"
       formControlName="defaultUnit">
       <option [value]="''">Select Default Unit...</option>
-      <option>Grams (g)</option>
-      <option>Cups (c)</option>
-      <option>Grams (g)</option>
-      <option>Grams (g)</option>
+      <option [value]="unit" *ngFor="let unit of units">{{unit.name}} ({{unit.abbr}})</option>
     </select>
   </div>
   <div>
-    <bm-button class="w-full" icon="bi-save" [disabled]="form.invalid">Save</bm-button>
+    <bm-button class="w-full" icon="bi-save" (bmClick)="saveIngredient()" [disabled]="form.invalid">Save</bm-button>
   </div>
 </form>

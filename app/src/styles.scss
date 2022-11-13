@@ -70,7 +70,7 @@ html, body {
 }
 
 table {
-  @apply w-full rounded-3xl border-collapse;
+  @apply w-full rounded-3xl border-separate overflow-hidden border-spacing-0 border border-bm-brown/25;
 }
 
 table thead {
@@ -83,30 +83,10 @@ table thead tr th {
   @apply p-4;
 }
 table tbody tr {
-  @apply odd:bg-gray-200;
+  @apply odd:bg-gray-200/75 even:bg-gray-100;
 }
 table tbody tr td {
   @apply p-4;
-}
-
-/* top-left border-radius */
-table tr:first-child th:first-child {
-  border-top-left-radius: 12px;
-}
-
-/* top-right border-radius */
-table tr:first-child th:last-child {
-  border-top-right-radius: 12px;
-}
-
-/* bottom-left border-radius */
-table tr:last-child td:first-child {
-  border-bottom-left-radius: 12px;
-}
-
-/* bottom-right border-radius */
-table tr:last-child td:last-child {
-  border-bottom-right-radius: 12px;
 }
 
 .bm-border-outline {

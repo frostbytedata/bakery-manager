@@ -6,3 +6,9 @@ export interface Ingredient extends BaseModel {
   description: string;
   defaultUnit: Unit;
 }
+
+export interface IngredientDto {
+  name: string;
+  description: string;
+  defaultUnitId: number;
+}

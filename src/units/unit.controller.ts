@@ -10,9 +10,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { IngredientService } from './ingredient.service';
-import { CreateIngredientDto } from './dto/create-ingredient.dto';
-import { UpdateIngredientDto } from './dto/update-ingredient.dto';
+import { UnitService } from './unit.service';
+import { CreateUnitDto } from './dto/create-unit.dto';
+import { UpdateUnitDto } from './dto/update-unit.dto';
 import { PaginationOptions } from '../shared/types/pagination-options';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { User as UserDecorator } from '../shared/decorators/user.decorator';
@@ -21,27 +21,25 @@ import { Unit } from '../entity/Unit';
 import { MustOwnResponse } from '../shared/interceptors/response-owner.interceptor';
 
 @UseGuards(JwtAuthGuard)
-@Controller('ingredient')
-export class IngredientController {
-  constructor(private readonly ingredientService: IngredientService) {}
+@Controller('unit')
+export class UnitController {
+  constructor(private readonly unitService: UnitService) {}
 
   @Post()
   async create(
-    @Body() createIngredientDto: CreateIngredientDto,
+    @Body() createUnitDto: CreateUnitDto,
     @Request() req,
     @UserDecorator() user,
   ) {
-    return this.ingredientService.create({
-      defaultUnitId: 3,
-      ...createIngredientDto,
-      user: { id: user.id } as User,
+    return this.unitService.create({
+      ...createUnitDto,
     });
   }
 
   @UseInterceptors(MustOwnResponse('userId'))
   @Get()
   findAll(@Request() request) {
-    return this.ingredientService.findAll(
+    return this.unitService.findAll(
       new PaginationOptions(request.query?.page, request.query?.amount),
     );
   }
@@ -49,19 +47,19 @@ export class IngredientController {
   @UseInterceptors(MustOwnResponse('userId'))
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ingredientService.findOne(+id);
+    return this.unitService.findOne(+id);
   }
 
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateIngredientDto: UpdateIngredientDto,
+    @Body() updateUnitDto: UpdateUnitDto,
   ) {
-    return this.ingredientService.update(+id, updateIngredientDto);
+    return this.unitService.update(+id, updateUnitDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.ingredientService.remove(+id);
+    return this.unitService.remove(+id);
   }
 }

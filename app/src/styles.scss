@@ -56,7 +56,6 @@ $app-theme: mat.define-light-theme((
   select option{
     @apply p-10
   }
-
 }
 .ng-touched.ng-invalid:not(form) {
   @apply border-l-4 border-bm-error;

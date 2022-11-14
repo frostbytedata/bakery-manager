@@ -1,3 +1,7 @@
+button {
+  @apply rounded-xl bg-bm-accent py-3 px-5 text-lg leading-tight text-bm-offwhite disabled:saturate-50 disabled:opacity-75 hover:saturate-200 hover:scale-[1.01] transition ease-in-out duration-100
+}
+
 button > i, div {
   margin-bottom: -4px;
 }

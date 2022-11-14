@@ -1,11 +1,20 @@
 <header class="m-8 flex w-full flex-row items-center justify-end gap-4">
   <div
-    class="flex cursor-pointer rounded-full bg-bm-background_light p-3 text-center drop-shadow-sm">
+    class="flex cursor-pointer rounded-full bg-bm-background_light p-3 text-center drop-shadow-sm hover:animate-slowspin">
     <i class="bi-gear-fill h-8 w-8 text-3xl"></i>
   </div>
   <div
-    class="flex cursor-pointer rounded-full bg-bm-background_light p-3 text-center drop-shadow-sm">
-    <i class="bi-person-circle h-8 w-8 text-3xl mr-2"></i>
-    <div class="leading-loose">{{userStore.data?.user?.email}}</div>
+    class="flex cursor-pointer rounded-full bg-bm-background_light p-3 text-center drop-shadow-sm transition duration-100 ease-in-out hover:scale-[1.01]"
+    [matMenuTriggerFor]="menu">
+    <i class="bi-person-circle mr-2 h-8 w-8 text-3xl"></i>
+    <div class="leading-loose">{{ userStore.data?.user?.email }}</div>
   </div>
+  <mat-menu #menu="matMenu">
+    <ng-template matMenuContent>
+      <div mat-menu-item routerLink="login" class="flex flex-row items-center" style="display: flex;">
+        <i class="flex bi-door-closed mr-2 h-6 w-6 text-2xl"></i>
+        <div class="flex">Logout</div>
+      </div>
+    </ng-template>
+  </mat-menu>
 </header>

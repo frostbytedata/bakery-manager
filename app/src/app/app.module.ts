@@ -9,10 +9,10 @@ import { UserService } from './services/user.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HomePage } from './pages/home/home.page';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LowIngredientsComponent } from './components/widgets/low-ingredients/low-ingredients.component';
 import { JWTInterceptor } from './services/base.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToolbarModule } from './components/toolbar/toolbar.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginPage,
     HomePage,
     NavigationComponent,
-    ToolbarComponent,
     LowIngredientsComponent,
   ],
   imports: [
@@ -29,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToolbarModule,
   ],
   providers: [
     UserService,

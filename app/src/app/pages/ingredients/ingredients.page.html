@@ -17,7 +17,7 @@
           <tr *ngIf="ingredients.length <= 0">
             <td class="text-center" colspan="3">No Ingredients 😓</td>
           </tr>
-          <tr class="hover:cursor-pointer" *ngFor="let ingredient of ingredients">
+          <tr class="hover:cursor-pointer hover:scale-[1.01] transition ease-in-out duration-100" *ngFor="let ingredient of ingredients">
             <td>{{ingredient.name}}</td>
             <td>{{ingredient.description}}</td>
             <td>{{ingredient.defaultUnit?.name}}s ({{ingredient.defaultUnit?.abbr}})</td>

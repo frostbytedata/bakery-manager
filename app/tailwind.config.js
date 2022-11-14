@@ -32,6 +32,9 @@ module.exports = {
         160: '40rem', // 640px
         192: '48rem', // 768px
       },
+      animation: {
+        slowspin: 'spin 5s linear infinite',
+      },
     },
   },
   plugins: [

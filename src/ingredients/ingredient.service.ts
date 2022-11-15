@@ -8,7 +8,7 @@ import { dataSource } from '../database.providers';
 
 @Injectable()
 export class IngredientService implements OnApplicationBootstrap {
-  readonly maxReturned = 20;
+  readonly maxReturned = 300;
   repo:
     | Repository<Ingredient>
     | MongoRepository<Ingredient>
@@ -24,6 +24,11 @@ export class IngredientService implements OnApplicationBootstrap {
     const newResource = this.repo.create(createIngredientDto);
     const saveResult = await this.repo.save(newResource);
     return this.findOne(saveResult.id);
+  }
+
+  async upsert(ingredientDto: CreateIngredientDto | UpdateIngredientDto) {
+    const upsertResult = await this.repo.save(ingredientDto);
+    return upsertResult;
   }
 
   async findAll(pagination: PaginationOptions) {

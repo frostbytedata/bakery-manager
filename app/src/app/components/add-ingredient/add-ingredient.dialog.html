@@ -19,10 +19,10 @@
   <div>
     <select
       id="defaultUnit"
-      type="text"
-      formControlName="defaultUnit">
+      matNativeControl
+      formControlName="defaultUnitId">
       <option [value]="''">Select Default Unit...</option>
-      <option [value]="unit" *ngFor="let unit of units">{{unit.name}} ({{unit.abbr}})</option>
+      <option [ngValue]="unit.id" *ngFor="let unit of units">{{unit.name}} ({{unit.abbr}})</option>
     </select>
   </div>
   <div>

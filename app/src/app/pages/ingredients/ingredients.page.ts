@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
 import { Ingredient } from '../../models/ingredient.model';
 import { IngredientService } from '../../services/ingredient.service';
-import { tap } from 'rxjs';
+import { first, tap } from 'rxjs';
 import { AddIngredientDialogService } from '../../components/add-ingredient/add-ingredient.dialog.service';
 @Component({
   selector: 'bm-ingredients',
@@ -23,8 +23,12 @@ export class IngredientsPage
   }
 
   ngOnInit(): void {
+    this.getIngredients();
+  }
+
+  getIngredients(pull?: boolean) {
     this.subs.sink = this.ingredientService
-      .getAll()
+      .getAll(pull)
       .pipe(
         tap(() => {
           this.loading = true;
@@ -42,11 +46,15 @@ export class IngredientsPage
       });
   }
 
-  openEditModal(event: Event) {
-    console.info('openEditModal', event);
-    const dialogRef = this.addIngredientDialogService.open();
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+  openEditModal(event: Event, ingredient?: Ingredient): void {
+    const dialogRef = this.addIngredientDialogService.open(ingredient);
+    this.subs.sink = dialogRef
+      .afterClosed()
+      .pipe(first())
+      .subscribe((result) => {
+        if (result) {
+          this.getIngredients();
+        }
+      });
   }
 }

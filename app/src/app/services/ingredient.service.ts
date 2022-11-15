@@ -4,7 +4,7 @@ import { UnsubscribeOnDestroyAdapter } from '../shared/unsub-on-destroy';
 import { IngredientStore } from '../store/ingredient.store';
 import { map, of, tap } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-import { Ingredient, IngredientDto } from "../models/ingredient.model";
+import { IngredientDto } from '../models/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class IngredientService extends UnsubscribeOnDestroyAdapter {
   }
 
   private updateIngredientsList() {
-    return this.baseService.get(`${this.path}`).pipe(
+    return this.baseService.get(`${this.path}?amount=1000`).pipe(
       map((resp: HttpResponse<any>) => resp?.body?.data),
       tap((ingredients: any) => {
         this.ingredientStore.modify('ingredients', ingredients);
@@ -31,8 +31,8 @@ export class IngredientService extends UnsubscribeOnDestroyAdapter {
     );
   }
 
-  getAll() {
-    if (this.ingredientStore.data.ingredients.length > 0) {
+  getAll(pull?: boolean) {
+    if (this.ingredientStore.data.ingredients.length > 0 && !pull) {
       return of(this.ingredientStore.data.ingredients);
     } else {
       return this.updateIngredientsList();

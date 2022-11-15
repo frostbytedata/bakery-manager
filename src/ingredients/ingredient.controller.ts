@@ -17,7 +17,6 @@ import { PaginationOptions } from '../shared/types/pagination-options';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { User as UserDecorator } from '../shared/decorators/user.decorator';
 import { User } from '../entity/User';
-import { Unit } from '../entity/Unit';
 import { MustOwnResponse } from '../shared/interceptors/response-owner.interceptor';
 
 @UseGuards(JwtAuthGuard)
@@ -26,14 +25,14 @@ export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
 
   @Post()
-  async create(
-    @Body() createIngredientDto: CreateIngredientDto,
+  async upsert(
+    @Body() ingredientDto: CreateIngredientDto | UpdateIngredientDto,
     @Request() req,
     @UserDecorator() user,
   ) {
-    return this.ingredientService.create({
+    return this.ingredientService.upsert({
       defaultUnitId: 3,
-      ...createIngredientDto,
+      ...ingredientDto,
       user: { id: user.id } as User,
     });
   }

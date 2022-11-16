@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Ingredient, IngredientDto } from '../../models/ingredient.model';
 import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
+import { currencyMask } from '../../shared/currency.mask';
 
 @Component({
   selector: 'bm-add-ingredient',
@@ -21,6 +22,7 @@ export class AddIngredientDialog
   form: FormGroup = new FormGroup<any>([]);
   loading = false;
   units: Unit[] = [];
+  currencyMask = currencyMask;
   constructor(
     public dialogRef: MatDialogRef<AddIngredientDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { ingredient: Ingredient },
@@ -36,6 +38,7 @@ export class AddIngredientDialog
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', Validators.required],
+      cost: [0, [Validators.required, Validators.min(0)]],
       defaultUnitId: ['', [Validators.required, Validators.nullValidator]],
     });
     const ingredient: Ingredient = this.data?.ingredient;
@@ -55,6 +58,10 @@ export class AddIngredientDialog
             ingredient?.description ? ingredient.description : '',
             Validators.required,
           ],
+          cost: [
+            ingredient?.cost ? ingredient.cost : '',
+            [Validators.required, Validators.min(0)],
+          ],
           defaultUnitId: [
             ingredient?.defaultUnit?.id
               ? ingredient.defaultUnit?.id
@@ -71,6 +78,7 @@ export class AddIngredientDialog
     const payload: IngredientDto = {
       name: this.form.value.name,
       description: this.form.value.description,
+      cost: this.form.value.cost,
       defaultUnitId: this.form.value.defaultUnitId,
     };
     if (this.data?.ingredient?.id) {

@@ -16,7 +16,14 @@
       placeholder="Description"
       formControlName="description"></textarea>
   </div>
-  <div>
+  <div class="flex flex-row justify-between items-center gap-4">
+    <input
+      id="cost"
+      type="decimal"
+      [inputMask]="currencyMask"
+      placeholder="$ 0.00"
+      formControlName="cost" />
+    <div>Per</div>
     <select
       id="defaultUnit"
       matNativeControl

@@ -7,13 +7,17 @@ import { IngredientService } from '../../services/ingredient.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Ingredient, IngredientDto } from '../../models/ingredient.model';
+import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
 
 @Component({
   selector: 'bm-add-ingredient',
   templateUrl: './add-ingredient.dialog.html',
   styleUrls: ['./add-ingredient.dialog.scss'],
 })
-export class AddIngredientDialog implements OnInit {
+export class AddIngredientDialog
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   form: FormGroup = new FormGroup<any>([]);
   loading = false;
   units: Unit[] = [];
@@ -24,7 +28,9 @@ export class AddIngredientDialog implements OnInit {
     private unitService: UnitService,
     private ingredientService: IngredientService,
     private sb: MatSnackBar,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -33,7 +39,7 @@ export class AddIngredientDialog implements OnInit {
       defaultUnitId: ['', [Validators.required, Validators.nullValidator]],
     });
     const ingredient: Ingredient = this.data?.ingredient;
-    this.unitService
+    this.subs.sink = this.unitService
       .getAll()
       .pipe(
         tap(() => {
@@ -70,19 +76,22 @@ export class AddIngredientDialog implements OnInit {
     if (this.data?.ingredient?.id) {
       payload.id = this.data.ingredient.id;
     }
-    this.ingredientService.save(payload).subscribe({
-      next: (result) => {
-        this.sb.open('Ingredient Saved!', '', { duration: 5000 });
-        this.loading = false;
-        this.dialogRef.close(result?.body);
-      },
-      error: (err) => {
-        this.sb.open('There was an error saving this ingredient ⚠', '', {
-          duration: 5000,
-        });
-        this.loading = false;
-        this.dialogRef.close();
-      },
-    });
+    this.subs.sink = this.ingredientService
+      .save(payload)
+      .pipe(first())
+      .subscribe({
+        next: (result) => {
+          this.sb.open('Ingredient Saved!', '', { duration: 5000 });
+          this.loading = false;
+          this.dialogRef.close(result?.body);
+        },
+        error: (err) => {
+          this.sb.open('There was an error saving this ingredient ⚠', '', {
+            duration: 5000,
+          });
+          this.loading = false;
+          this.dialogRef.close();
+        },
+      });
   }
 }

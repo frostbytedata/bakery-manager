@@ -72,12 +72,14 @@ export class AddIngredientDialog implements OnInit {
     }
     this.ingredientService.save(payload).subscribe({
       next: (result) => {
-        this.sb.open('Ingredient Saved!');
+        this.sb.open('Ingredient Saved!', '', { duration: 5000 });
         this.loading = false;
         this.dialogRef.close(result?.body);
       },
       error: (err) => {
-        this.sb.open('There was an error saving this ingredient ⚠');
+        this.sb.open('There was an error saving this ingredient ⚠', '', {
+          duration: 5000,
+        });
         this.loading = false;
         this.dialogRef.close();
       },

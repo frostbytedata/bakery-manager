@@ -53,7 +53,7 @@ export class IngredientsPage
       .pipe(first())
       .subscribe((result) => {
         if (result) {
-          this.getIngredients();
+          this.getIngredients(true);
         }
       });
   }

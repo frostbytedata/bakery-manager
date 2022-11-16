@@ -18,6 +18,7 @@ export class UserService extends UnsubscribeOnDestroyAdapter {
   ) {
     super();
   }
+
   getSelf() {
     return this.baseService.get('/users/self').subscribe((userResponse) => {
       this.userStore.modify('user', userResponse?.body);
@@ -38,6 +39,10 @@ export class UserService extends UnsubscribeOnDestroyAdapter {
         return loginResult?.body;
       }),
     );
+  }
+  logout() {
+    this.userStore.modify('user', {});
+    this.baseService.clearToken();
   }
   register(registerPayload: UserRegisterDto) {
     return this.baseService.post('/users', registerPayload);

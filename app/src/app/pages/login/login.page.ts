@@ -37,6 +37,7 @@ export class LoginPage extends UnsubscribeOnDestroyAdapter implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.logout();
     this.route.url
       .pipe(
         map((segments: UrlSegment[]) => {

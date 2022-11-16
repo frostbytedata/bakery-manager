@@ -11,7 +11,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey: configService.get<string>('jwt.secret'),
       jsonWebTokenOptions: {
-        expiresIn: '10s',
+        // This value is overwritten by the JWT_EXPIRY env variable
+        expiresIn: '2h',
       },
     });
   }

@@ -8,11 +8,13 @@ import {
   HttpRequest,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { UserStore } from '../store/user.store';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -66,6 +68,10 @@ export class BaseService {
     localStorage.setItem('accessToken', token);
   }
 
+  public clearToken(): void {
+    localStorage.removeItem('accessToken');
+  }
+
   public tokenExpired(): boolean {
     const token = this.retrieveToken();
     if (token !== undefined && token !== null) {
@@ -91,8 +97,11 @@ export class BaseService {
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class JWTInterceptor implements HttpInterceptor {
-  constructor(private baseService: BaseService) {
-  }
+  constructor(
+    private router: Router,
+    private baseService: BaseService,
+    private sb: MatSnackBar,
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -102,6 +111,17 @@ export class JWTInterceptor implements HttpInterceptor {
       catchError((error: any, caught: Observable<HttpEvent<any>>) => {
         if (error.status === 401 && this.baseService.tokenExpired()) {
           console.error('HttpInterceptor Detected Expired Token');
+          const sbRef = this.sb.open(
+            'Your login session has expired',
+            'Login',
+            { duration: Infinity },
+          );
+          sbRef
+            .onAction()
+            .pipe(take(1))
+            .subscribe((result: any) => {
+              this.router.navigate(['login']);
+            });
         }
         console.error(error.error.name);
         console.error(error.error.message);

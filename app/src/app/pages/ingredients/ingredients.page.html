@@ -11,6 +11,7 @@
           <th>Name</th>
           <th>Description</th>
           <th>Unit</th>
+          <th>Cost</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
             <td>{{ingredient.name}}</td>
             <td>{{ingredient.description}}</td>
             <td>{{ingredient.defaultUnit?.name}}s ({{ingredient.defaultUnit?.abbr}})</td>
+            <td>{{ingredient.cost | currency}} per {{ingredient.defaultUnit?.abbr}}</td>
           </tr>
         </tbody>
       </table>

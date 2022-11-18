@@ -1,0 +1,32 @@
+<div class="grid grid-cols-3 gap-4">
+  <div class="col-span-3">
+    <div class="bm-widget-container flex flex-col gap-4 p-6">
+      <div class="flex flex-row justify-between items-center">
+        <h3 class="text-3xl px-2">Recipe List</h3>
+        <bm-button icon="bi-plus-circle">Add Recipe</bm-button>
+      </div>
+      <table class="table-auto" [class.animate-pulse]="this.loading">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Retail Sale Price</th>
+          <th>Wholesale Sale Price</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="recipes.length <= 0">
+            <td class="text-center" colspan="4">No Recipes 😓</td>
+          </tr>
+          <tr class="hover:cursor-pointer hover:scale-[1.01] transition ease-in-out duration-100" *ngFor="let recipe of recipes">
+            <td>{{recipe.name}}</td>
+            <td>{{recipe.description}}</td>
+            <td>{{recipe.retailPrice | currency}}</td>
+            <td>{{recipe.wholesalePrice | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

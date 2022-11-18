@@ -10,6 +10,7 @@ import { GlobalInterceptor } from './shared/interceptors/global.interceptor';
 import { RoleModule } from './roles/role.module';
 import { DatabaseModule } from './database.module';
 import { IngredientModule } from './ingredients/ingredient.module';
+import { RecipeModule } from './recipes/recipe.module';
 import { UnitModule } from './units/unit.module';
 
 @Module({
@@ -23,6 +24,7 @@ import { UnitModule } from './units/unit.module';
     AuthModule,
     RoleModule,
     IngredientModule,
+    RecipeModule,
     UnitModule,
   ],
   controllers: [AppController],

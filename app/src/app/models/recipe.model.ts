@@ -14,7 +14,7 @@ export interface RecipeDto {
   id?: number;
   name: string;
   description: string;
-  ingredients: Ingredient[];
+  ingredients?: Ingredient[];
   retailPrice: number;
   wholesalePrice: number;
 }

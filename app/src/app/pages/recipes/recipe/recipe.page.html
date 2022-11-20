@@ -1,0 +1,69 @@
+<div class="grid grid-cols-3 gap-4">
+  <div class="col-span-3 grid grid-flow-row gap-4">
+    <div class="bm-widget-container flex flex-col gap-4 p-6">
+      <div class="flex w-full flex-row items-center">
+        <i
+          (click)="goToRecipesPage()"
+          class="bi-arrow-left-circle mr-2 shrink cursor-pointer text-3xl transition duration-100 ease-in-out hover:scale-[1.01]"></i>
+        <h3 class="shrink px-1 text-3xl">
+          {{mode === 'edit' ? this.form.get('name')?.value : 'New Recipe'}}
+        </h3>
+      </div>
+      <form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
+        <div>
+          {{this.form.get('name')?.value}}
+          <input
+            id="name"
+            type="text"
+            placeholder="Ingredient Name"
+            formControlName="name" />
+        </div>
+        <div>
+          {{this.form.get('description')?.value}}
+          <textarea
+            id="description"
+            type="text"
+            placeholder="Description"
+            formControlName="description"></textarea>
+        </div>
+        <div class="flex flex-row items-center justify-between gap-4">
+          <div class="w-full">
+            {{this.form.get('retailPrice')?.value | currency}}
+            <label for="retailPrice">Retail Price</label>
+            <input
+              id="retailPrice"
+              type="decimal"
+              [inputMask]="currencyMask"
+              placeholder="$ 0.00"
+              formControlName="retailPrice" />
+          </div>
+          <div class="w-full">
+            {{this.form.get('wholesalePrice')?.value | currency}}
+            <label for="wholesalePrice">Wholesale Price</label>
+            <input
+              id="wholesalePrice"
+              type="decimal"
+              [inputMask]="currencyMask"
+              placeholder="$ 0.00"
+              formControlName="wholesalePrice" />
+          </div>
+        </div>
+        <div>
+          <bm-button
+            class="w-full"
+            icon="bi-save"
+            (bmClick)="saveRecipe()"
+            [disabled]="form.invalid"
+            >Save</bm-button
+          >
+        </div>
+      </form>
+    </div>
+    <div
+      *ngIf="mode !== 'new'"
+      class="bm-widget-container flex flex-col gap-4 p-6">
+      <h3 class="px-1 text-3xl">Ingredients</h3>
+      <div class="flex flex-col">Tabler here</div>
+    </div>
+  </div>
+</div>

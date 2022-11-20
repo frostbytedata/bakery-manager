@@ -3,6 +3,8 @@ import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
 import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from '../../services/recipe.service';
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'bm-recipes',
   templateUrl: './recipes.page.html',
@@ -11,9 +13,8 @@ import { tap } from 'rxjs';
 export class RecipesPage extends UnsubscribeOnDestroyAdapter implements OnInit {
   recipes: Recipe[] = [];
   loading = true;
-  constructor(
-    private recipeService: RecipeService,
-  ) {
+
+  constructor(private recipeService: RecipeService, private router: Router) {
     super();
   }
 
@@ -39,5 +40,9 @@ export class RecipesPage extends UnsubscribeOnDestroyAdapter implements OnInit {
           this.loading = false;
         },
       });
+  }
+
+  goToRecipe(event: Event, id: number | 'new' | undefined): void {
+    this.router.navigate(['recipes/' + id]);
   }
 }

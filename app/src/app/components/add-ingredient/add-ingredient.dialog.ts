@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Ingredient, IngredientDto } from '../../models/ingredient.model';
 import { UnsubscribeOnDestroyAdapter } from '../../shared/unsub-on-destroy';
-import { currencyMask } from '../../shared/currency.mask';
+import { CurrencyMask } from '../../shared/currency.mask';
 
 @Component({
   selector: 'bm-add-ingredient',
@@ -22,7 +22,7 @@ export class AddIngredientDialog
   form: FormGroup = new FormGroup<any>([]);
   loading = false;
   units: Unit[] = [];
-  currencyMask = currencyMask;
+  currencyMask = CurrencyMask;
   constructor(
     public dialogRef: MatDialogRef<AddIngredientDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { ingredient: Ingredient },

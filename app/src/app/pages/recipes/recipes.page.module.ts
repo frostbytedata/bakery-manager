@@ -4,6 +4,8 @@ import { RecipesPage } from './recipes.page';
 import { AppMaterialModule } from '../../app-material.module';
 import { UiComponentsModule } from '../../components/ui/ui-components.module';
 import { RouterModule, Routes } from '@angular/router';
+import { RecipePage } from './recipe/recipe.page';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -14,18 +16,23 @@ const routes: Routes = [
   {
     path: ':id',
     title: 'Recipe',
-    component: RecipesPage,
+    component: RecipePage,
+  },
+  {
+    path: 'new',
+    title: 'Recipe',
+    component: RecipePage,
   },
 ];
 
 @NgModule({
-  declarations: [RecipesPage],
+  declarations: [RecipesPage, RecipePage],
   providers: [],
-  exports: [RecipesPage],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     AppMaterialModule,
+    ReactiveFormsModule,
     UiComponentsModule,
   ],
 })

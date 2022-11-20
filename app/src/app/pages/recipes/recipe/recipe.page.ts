@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { UnsubscribeOnDestroyAdapter } from '../../../shared/unsub-on-destroy';
 import { RecipeService } from '../../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CurrencyMask } from '../../../shared/currency.mask';
-import { first, take, tap } from 'rxjs';
+import { first, merge, take, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Unit } from '../../../models/unit.model';
-import { Recipe } from '../../../models/recipe.model';
 @Component({
   selector: 'bm-recipe',
   templateUrl: './recipe.page.html',
@@ -15,9 +18,20 @@ import { Recipe } from '../../../models/recipe.model';
 })
 export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
   form: FormGroup = new FormGroup<any>([]);
-  loading = false;
+  _loading = false;
+  public get loading() {
+    return this._loading;
+  }
+  public set loading(value: boolean) {
+    if (value) {
+      this.form.disable({ emitEvent: false });
+    } else {
+      this.form.enable({ emitEvent: false });
+    }
+    this._loading = value;
+  }
   currencyMask = CurrencyMask;
-  mode: string = 'new';
+  mode = 'new';
   constructor(
     private recipeService: RecipeService,
     private router: Router,
@@ -29,7 +43,7 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.subs.sink = this.route.params.subscribe((params) => {
       if (params['id'] !== 'new') {
         this.mode = 'edit';
         this.subs.sink = this.recipeService
@@ -43,46 +57,77 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
           .subscribe({
             next: (result) => {
               const recipe = result.body;
-              this.form = this.fb.group({
-                name: [recipe?.name ? recipe.name : '', Validators.required],
-                description: [
-                  recipe?.description ? recipe.description : '',
-                  Validators.required,
-                ],
-                ingredients: [],
-                retailPrice: [
-                  recipe?.retailPrice ? recipe.retailPrice : '',
-                  [Validators.required, Validators.min(0)],
-                ],
-                wholesalePrice: [
-                  recipe?.wholesalePrice ? recipe.wholesalePrice : '',
-                  [Validators.required, Validators.min(0)],
-                ],
-              });
+              this.form.setValue(
+                {
+                  id: this.mode === 'edit' ? params['id'] : '',
+                  name: recipe?.name ? recipe.name : '',
+                  description: recipe?.description ? recipe.description : '',
+                  ingredients: [],
+                  retailPrice: recipe?.retailPrice ? recipe.retailPrice : 0,
+                  wholesalePrice: recipe?.wholesalePrice
+                    ? recipe.wholesalePrice
+                    : 0,
+                },
+                { emitEvent: false },
+              );
               this.loading = false;
             },
           });
       }
     });
+    this.initForm();
+    this.subscribeToFormFieldEvents();
+  }
+
+  initForm(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', Validators.required],
+      id: new FormControl(null),
+      name: new FormControl('', {
+        validators: [Validators.required],
+        updateOn: 'blur',
+      }),
+      description: new FormControl('', {
+        validators: [Validators.required],
+        updateOn: 'blur',
+      }),
       ingredients: [],
-      retailPrice: [0, [Validators.required, Validators.min(0)]],
-      wholesalePrice: [0, [Validators.required, Validators.min(0)]],
+      retailPrice: new FormControl('', {
+        validators: [Validators.required, Validators.min(0)],
+        updateOn: 'blur',
+      }),
+      wholesalePrice: new FormControl('', {
+        validators: [Validators.required, Validators.min(0)],
+        updateOn: 'blur',
+      }),
+    });
+  }
+
+  subscribeToFormFieldEvents() {
+    this.subs.sink = merge(this.form.valueChanges).subscribe({
+      next: (formValue) => {
+        if (this.form.valid) {
+          this.saveRecipe();
+        }
+      },
     });
   }
 
   saveRecipe() {
     this.subs.sink = this.recipeService
       .save({
+        id: !!this.form.value.id ? Number(this.form.value.id) : null,
         name: this.form.value.name,
         description: this.form.value.description,
         ingredients: [],
         retailPrice: this.form.value.retailPrice,
         wholesalePrice: this.form.value.wholesalePrice,
       })
-      .pipe(first())
+      .pipe(
+        tap(() => {
+          this.form.disable({ emitEvent: false });
+        }),
+        first(),
+      )
       .subscribe({
         next: (result) => {
           this.sb.open('Recipe Saved!', '', { duration: 5000 });

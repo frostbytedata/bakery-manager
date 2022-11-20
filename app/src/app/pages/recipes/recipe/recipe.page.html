@@ -11,7 +11,7 @@
       </div>
       <form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
         <div>
-          {{this.form.get('name')?.value}}
+          Name
           <input
             id="name"
             type="text"
@@ -19,7 +19,7 @@
             formControlName="name" />
         </div>
         <div>
-          {{this.form.get('description')?.value}}
+          Description
           <textarea
             id="description"
             type="text"
@@ -28,7 +28,7 @@
         </div>
         <div class="flex flex-row items-center justify-between gap-4">
           <div class="w-full">
-            {{this.form.get('retailPrice')?.value | currency}}
+            Retail Sale Price
             <label for="retailPrice">Retail Price</label>
             <input
               id="retailPrice"
@@ -38,7 +38,7 @@
               formControlName="retailPrice" />
           </div>
           <div class="w-full">
-            {{this.form.get('wholesalePrice')?.value | currency}}
+            Wholesale Price
             <label for="wholesalePrice">Wholesale Price</label>
             <input
               id="wholesalePrice"
@@ -47,15 +47,6 @@
               placeholder="$ 0.00"
               formControlName="wholesalePrice" />
           </div>
-        </div>
-        <div>
-          <bm-button
-            class="w-full"
-            icon="bi-save"
-            (bmClick)="saveRecipe()"
-            [disabled]="form.invalid"
-            >Save</bm-button
-          >
         </div>
       </form>
     </div>

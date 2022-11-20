@@ -82,6 +82,12 @@ $ npm run migrate:up
 $ npm run migrate:down
 ```
 
+Query command to reset `id` column for any table. `seq_name` can be found in the identity column definition for each table.
+```genericsql
+ALTER SEQUENCE [seq_name] RESTART WITH 1;
+```
+
+
 ## Use an API Route
 
 ### Explain getting a JWT here....

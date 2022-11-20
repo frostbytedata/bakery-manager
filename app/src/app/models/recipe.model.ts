@@ -11,7 +11,7 @@ export interface Recipe extends BaseModel {
 }
 
 export interface RecipeDto {
-  id?: number;
+  id?: number | null;
   name: string;
   description: string;
   ingredients?: Ingredient[];

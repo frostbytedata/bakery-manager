@@ -7,20 +7,13 @@ import { LoginPage } from './pages/login/login.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePage } from './pages/home/home.page';
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { LowIngredientsComponent } from './components/widgets/low-ingredients/low-ingredients.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToolbarModule } from './components/toolbar/toolbar.module';
 import { ServicesModule } from './services/services.module';
+import { NavigationModule } from './components/navigation/navigation.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginPage,
-    HomePage,
-    NavigationComponent,
-    LowIngredientsComponent,
-  ],
+  declarations: [AppComponent, LoginPage, HomePage, LowIngredientsComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -28,7 +21,7 @@ import { ServicesModule } from './services/services.module';
     ServicesModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToolbarModule,
+    NavigationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

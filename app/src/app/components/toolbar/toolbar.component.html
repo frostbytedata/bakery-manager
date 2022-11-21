@@ -6,8 +6,8 @@
   <div
     class="flex cursor-pointer rounded-full bg-bm-background_light p-3 text-center drop-shadow-sm transition duration-100 ease-in-out hover:scale-[1.01]"
     [matMenuTriggerFor]="menu">
-    <i class="bi-person-circle mr-2 h-8 w-8 text-3xl"></i>
-    <div class="leading-loose">{{ userStore.data?.user?.email }}</div>
+    <i class="bi-person-circle lg:mr-2 h-8 w-8 text-3xl"></i>
+    <div class="leading-loose hidden lg:inline-block">{{ userStore.data?.user?.email }}</div>
   </div>
   <mat-menu #menu="matMenu">
     <ng-template matMenuContent>

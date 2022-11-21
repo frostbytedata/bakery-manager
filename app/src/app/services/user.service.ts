@@ -32,7 +32,7 @@ export class UserService extends UnsubscribeOnDestroyAdapter {
             this.baseService.setToken(loginResult?.body?.access_token);
             this.getSelf();
           }
-          this.router.navigate(['/home']);
+          this.router.navigate(['/recipes']);
         }
       }),
       map((loginResult: HttpResponse<any>): any => {

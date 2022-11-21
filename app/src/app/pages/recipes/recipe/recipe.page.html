@@ -1,60 +1,84 @@
-<div class="grid grid-cols-3 gap-4">
-  <div class="col-span-3 grid grid-flow-row gap-4">
-    <div class="bm-widget-container flex flex-col gap-4 p-6">
-      <div class="flex w-full flex-row items-center">
-        <i
-          (click)="goToRecipesPage()"
-          class="bi-arrow-left-circle mr-2 shrink cursor-pointer text-3xl transition duration-100 ease-in-out hover:scale-[1.01]"></i>
-        <h3 class="shrink px-1 text-3xl">
-          {{mode === 'edit' ? this.form.get('name')?.value : 'New Recipe'}}
-        </h3>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+  <div class="bm-widget-container flex-col gap-4 p-6">
+    <div class="flex w-full flex-row items-center">
+      <i
+        (click)="goToRecipesPage()"
+        class="bi-arrow-left-circle mr-2 shrink cursor-pointer text-3xl transition duration-100 ease-in-out hover:scale-[1.01]"></i>
+      <h3 class="shrink px-1 text-3xl">
+        {{mode === 'edit' ? this.form.get('name')?.value : 'New Recipe'}}
+      </h3>
+    </div>
+    <form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
+      <div>
+        Name
+        <input
+          id="name"
+          type="text"
+          placeholder="Ingredient Name"
+          formControlName="name" />
       </div>
-      <form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
-        <div>
-          Name
+      <div>
+        Description
+        <textarea
+          id="description"
+          type="text"
+          placeholder="Description"
+          formControlName="description"></textarea>
+      </div>
+      <div class="flex flex-row items-center justify-between gap-4">
+        <div class="w-full">
+          Retail Sale Price
+          <label for="retailPrice">Retail Price</label>
           <input
-            id="name"
-            type="text"
-            placeholder="Ingredient Name"
-            formControlName="name" />
+            id="retailPrice"
+            type="decimal"
+            [inputMask]="currencyMask"
+            placeholder="$ 0.00"
+            formControlName="retailPrice" />
         </div>
-        <div>
-          Description
-          <textarea
-            id="description"
-            type="text"
-            placeholder="Description"
-            formControlName="description"></textarea>
+        <div class="w-full">
+          Wholesale Price
+          <label for="wholesalePrice">Wholesale Price</label>
+          <input
+            id="wholesalePrice"
+            type="decimal"
+            [inputMask]="currencyMask"
+            placeholder="$ 0.00"
+            formControlName="wholesalePrice" />
         </div>
-        <div class="flex flex-row items-center justify-between gap-4">
-          <div class="w-full">
-            Retail Sale Price
-            <label for="retailPrice">Retail Price</label>
-            <input
-              id="retailPrice"
-              type="decimal"
-              [inputMask]="currencyMask"
-              placeholder="$ 0.00"
-              formControlName="retailPrice" />
-          </div>
-          <div class="w-full">
-            Wholesale Price
-            <label for="wholesalePrice">Wholesale Price</label>
-            <input
-              id="wholesalePrice"
-              type="decimal"
-              [inputMask]="currencyMask"
-              placeholder="$ 0.00"
-              formControlName="wholesalePrice" />
-          </div>
-        </div>
-      </form>
-    </div>
-    <div
-      *ngIf="mode !== 'new'"
-      class="bm-widget-container flex flex-col gap-4 p-6">
-      <h3 class="px-1 text-3xl">Ingredients</h3>
-      <div class="flex flex-col">Tabler here</div>
-    </div>
+      </div>
+    </form>
+  </div>
+  <div
+    *ngIf="mode !== 'new'"
+    class="bm-widget-container flex-col gap-4 p-6">
+    <h3 class="px-1 text-3xl">Ingredients</h3>
+    <table class="table-auto" [class.animate-pulse]="this.loading">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Unit</th>
+        <th>Cost</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="this.form.get('ingredients')?.value?.length <= 0">
+        <td class="text-center" colspan="4">No Ingredients 😓</td>
+      </tr>
+      <tr
+        class="transition duration-100 ease-in-out hover:scale-[1.01] hover:cursor-pointer"
+        *ngFor="let ingredient of this.form.get('ingredients')?.value">
+        <td>{{ingredient.name}}</td>
+        <td>{{ingredient.description}}</td>
+        <td>
+          {{ingredient.defaultUnit.name}}s ({{ingredient.defaultUnit.abbr}})
+        </td>
+        <td>
+          {{ingredient.cost | currency}} per {{ingredient.defaultUnit.abbr}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>

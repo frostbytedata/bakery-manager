@@ -18,6 +18,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { User as UserDecorator } from '../shared/decorators/user.decorator';
 import { User } from '../entity/User';
 import { MustOwnResponse } from '../shared/interceptors/response-owner.interceptor';
+import { RecipeAddIngredientDto } from './dto/recipe-add-ingredient.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('recipe')
@@ -58,5 +59,21 @@ export class RecipeController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.recipeService.remove(+id);
+  }
+
+  @Post('ingredient')
+  async addIngredient(
+    @Body() recipeAddIngredientDto: RecipeAddIngredientDto,
+    @Request() req,
+    @UserDecorator() user,
+  ) {
+    return this.recipeService.addIngredient({
+      ...recipeAddIngredientDto,
+    });
+  }
+
+  @Delete('ingredient/:ingredientId')
+  removeIngredient(@Param('ingredientId') ingredientId: string) {
+    return this.recipeService.removeIngredient(+ingredientId);
   }
 }

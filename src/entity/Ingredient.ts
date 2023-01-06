@@ -10,6 +10,7 @@ import { Conversion } from './Conversion';
 import { Unit } from './Unit';
 import { OwnableNameableEntity } from './OwnableNameableEntity';
 import { IsNumber } from 'class-validator';
+import { RecipeToIngredient } from './RecipeToIngredient';
 
 @Entity()
 export class Ingredient extends OwnableNameableEntity {
@@ -37,4 +38,7 @@ export class Ingredient extends OwnableNameableEntity {
 
   @OneToMany(() => Conversion, (conversion) => conversion.ingredient)
   conversions: Conversion[];
+
+  @OneToMany(() => RecipeToIngredient, recipeToIngredient => recipeToIngredient.ingredient)
+  public recipeToIngredients!: RecipeToIngredient[];
 }

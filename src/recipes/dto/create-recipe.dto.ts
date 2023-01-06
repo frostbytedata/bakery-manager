@@ -1,6 +1,6 @@
 import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 import { User } from '../../entity/User';
-import { Ingredient } from '../../entity/Ingredient';
+import { RecipeToIngredient } from '../../entity/RecipeToIngredient';
 
 export class CreateRecipeDto {
   @IsString()
@@ -13,7 +13,7 @@ export class CreateRecipeDto {
   user?: User;
 
   @IsArray()
-  ingredients: Ingredient[];
+  ingredients: RecipeToIngredient[];
 
   @IsNumber()
   retailPrice: number;

@@ -89,14 +89,12 @@ export class AddIngredientDialog
       .pipe(first())
       .subscribe({
         next: (result) => {
-          this.sb.open('Ingredient Saved!', '', { duration: 5000 });
+          this.sb.open('Ingredient Saved!', '');
           this.loading = false;
           this.dialogRef.close(result?.body);
         },
         error: (err) => {
-          this.sb.open('There was an error saving this ingredient ⚠', '', {
-            duration: 5000,
-          });
+          this.sb.open('There was an error saving this ingredient ⚠', '');
           this.loading = false;
           this.dialogRef.close();
         },

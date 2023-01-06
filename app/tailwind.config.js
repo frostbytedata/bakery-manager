@@ -20,7 +20,7 @@ module.exports = {
         'bm-background_light': '#f4f1de',
         'bm-background_active': '#e7be886e',
         'bm-background_active_fadednahoe': 'rgba(231,190,136,0.2)',
-        'bm-background_alt': '#b941008f',
+        'bm-background_alt': 'rgba(199,141,111,0.56)',
         'bm-background': '#2f4b6a',
         'bm-accent': '#5b8aa9',
       },

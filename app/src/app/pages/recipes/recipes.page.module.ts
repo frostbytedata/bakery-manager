@@ -6,6 +6,7 @@ import { UiComponentsModule } from '../../components/ui/ui-components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { RecipePage } from './recipe/recipe.page';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SelectIngredientModule } from '../../components/select-ingredient/select-ingredient.module';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
     AppMaterialModule,
     ReactiveFormsModule,
     UiComponentsModule,
+    SelectIngredientModule,
   ],
 })
 export class RecipesPageModule {}

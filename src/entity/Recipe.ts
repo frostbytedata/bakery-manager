@@ -1,14 +1,11 @@
-import { AfterLoad, Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { AfterLoad, Column, Entity, OneToMany } from 'typeorm';
 import { OwnableNameableEntity } from './OwnableNameableEntity';
 import { IsNumber } from 'class-validator';
 import { Ingredient } from './Ingredient';
+import { RecipeToIngredient } from './RecipeToIngredient';
 
 @Entity()
 export class Recipe extends OwnableNameableEntity {
-  @ManyToMany(() => Ingredient)
-  @JoinTable()
-  ingredients: Ingredient[];
-
   @Column({
     type: 'decimal',
     default: 0,
@@ -32,4 +29,10 @@ export class Recipe extends OwnableNameableEntity {
     this.retailPrice = Number(this.retailPrice) as number;
     this.wholesalePrice = Number(this.wholesalePrice) as number;
   }
+
+  @OneToMany(
+    () => RecipeToIngredient,
+    (recipeToIngredient) => recipeToIngredient.recipe,
+  )
+  ingredients!: RecipeToIngredient[];
 }

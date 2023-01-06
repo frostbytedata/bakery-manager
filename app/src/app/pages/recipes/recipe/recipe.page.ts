@@ -11,6 +11,9 @@ import {
 import { CurrencyMask } from '../../../shared/currency.mask';
 import { first, merge, take, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SelectIngredientDialogService } from '../../../components/select-ingredient/select-ingredient.dialog.service';
+import { Ingredient } from '../../../models/ingredient.model';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'bm-recipe',
   templateUrl: './recipe.page.html',
@@ -34,6 +37,7 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
   mode = 'new';
   constructor(
     private recipeService: RecipeService,
+    private selectIngredientDialogService: SelectIngredientDialogService,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -62,7 +66,7 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
                   id: this.mode === 'edit' ? params['id'] : '',
                   name: recipe?.name ? recipe.name : '',
                   description: recipe?.description ? recipe.description : '',
-                  ingredients: [],
+                  ingredients: recipe.ingredients,
                   retailPrice: recipe?.retailPrice ? recipe.retailPrice : 0,
                   wholesalePrice: recipe?.wholesalePrice
                     ? recipe.wholesalePrice
@@ -118,7 +122,6 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
         id: !!this.form.value.id ? Number(this.form.value.id) : null,
         name: this.form.value.name,
         description: this.form.value.description,
-        ingredients: [],
         retailPrice: this.form.value.retailPrice,
         wholesalePrice: this.form.value.wholesalePrice,
       })
@@ -130,14 +133,12 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
       )
       .subscribe({
         next: (result) => {
-          this.sb.open('Recipe Saved!', '', { duration: 5000 });
+          this.sb.open('Saved 💾', '', { duration: 2000 });
           this.loading = false;
           this.router.navigate(['recipes/' + result.body.id]);
         },
         error: (err) => {
-          this.sb.open('There was an error saving this recipe ⚠', '', {
-            duration: 5000,
-          });
+          this.sb.open('There was an error saving this recipe ⚠', '');
           console.error(err);
           this.loading = false;
         },
@@ -146,5 +147,54 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   goToRecipesPage() {
     this.router.navigate(['/recipes']);
+  }
+
+  addIngredient(event: Event) {
+    const addIngredientDialogRef = this.selectIngredientDialogService.open();
+    this.subs.sink = addIngredientDialogRef.afterClosed().subscribe({
+      next: (dialogResult) => {
+        if (dialogResult) {
+          this.loading = true;
+          this.subs.sink = this.recipeService
+            .addIngredient({
+              recipeId: Number(this.form.get('id')?.value),
+              ...dialogResult,
+            })
+            .subscribe({
+              next: (resp: HttpResponse<Ingredient>) => {
+                const ingredientsCtrl = this.form.get('ingredients');
+                const ingredients = ingredientsCtrl?.value.concat(resp?.body);
+                ingredientsCtrl?.setValue(ingredients);
+                this.loading = false;
+              },
+              error: () => (this.loading = false),
+            });
+        }
+      },
+      error: (err) => {
+        this.sb.open('There was an error saving this ingredient ⚠', '');
+        console.error(err);
+        this.loading = false;
+      },
+    });
+  }
+
+  removeIngredient(ingredient: Ingredient) {
+    this.loading = true;
+    this.subs.sink = this.recipeService
+      .removeIngredient(ingredient.id!)
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          const ingredientsCtrl = this.form.get('ingredients');
+          ingredientsCtrl?.setValue(
+            ingredientsCtrl?.value?.filter(
+              (ing: Ingredient) => ingredient.id !== ing.id,
+            ),
+          );
+          this.sb.open('Ingredient removed', '');
+        },
+        error: () => (this.loading = false),
+      });
   }
 }

@@ -114,7 +114,7 @@ export class JWTInterceptor implements HttpInterceptor {
           const sbRef = this.sb.open(
             'Your login session has expired',
             'Login',
-            { duration: Infinity },
+            { duration: 30000 },
           );
           sbRef
             .onAction()

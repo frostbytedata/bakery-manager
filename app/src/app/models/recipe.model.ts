@@ -18,3 +18,11 @@ export interface RecipeDto {
   retailPrice: number;
   wholesalePrice: number;
 }
+
+export interface AddIngredientToRecipeDto {
+  id?: number | null;
+  recipeId: number;
+  ingredientId: number;
+  quantity: number;
+  unitId: number;
+}

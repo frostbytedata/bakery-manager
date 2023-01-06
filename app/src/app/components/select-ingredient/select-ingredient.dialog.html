@@ -1,0 +1,41 @@
+<form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
+  <div>
+    <h3 class="text-2xl px-1 text-center" *ngIf="form.get('ingredient')?.invalid">Select Ingredient</h3>
+    <h3 class="text-2xl px-1 text-center" *ngIf="form.get('ingredient')?.valid">Input Amount Used</h3>
+  </div>
+  <div class="flex flex-row gap-4">
+    <div class="flex-auto">
+      <input type="text w-auto"
+             class="text-center"
+             placeholder="Search for an ingredient..."
+             aria-label="Ingredient"
+             matInput
+             formControlName="ingredient"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="ingredientDisplay">
+        <mat-option class="text-center" *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
+          {{ingredient.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div class="flex-auto" *ngIf="form.get('ingredient')?.valid">
+      <input type="text"
+             class="text-center"
+             placeholder="Quantity"
+             aria-label="Quantity of Ingredient"
+             matInput
+             formControlName="quantity">
+    </div>
+    <div class="flex-auto" *ngIf="form.get('ingredient')?.valid">
+      <select
+        id="unit"
+        matNativeControl
+        formControlName="unit">
+        <option [ngValue]="unit.id" *ngFor="let unit of ingredientUnits">{{unit.name}} ({{unit.abbr}})</option>
+      </select>
+    </div>
+  </div>
+  <div>
+    <bm-button class="w-full" icon="bi-save" (bmClick)="selectIngredient()" [disabled]="form.invalid">Save</bm-button>
+  </div>
+</form>

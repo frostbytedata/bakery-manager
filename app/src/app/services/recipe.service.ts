@@ -4,7 +4,7 @@ import { UnsubscribeOnDestroyAdapter } from '../shared/unsub-on-destroy';
 import { RecipeStore } from '../store/recipe.store';
 import { map, of, tap } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-import { RecipeDto } from '../models/recipe.model';
+import { AddIngredientToRecipeDto, RecipeDto } from '../models/recipe.model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,5 +47,14 @@ export class RecipeService extends UnsubscribeOnDestroyAdapter {
     );
   }
 
-  delete() {}
+  addIngredient(addIngredientToRecipe: AddIngredientToRecipeDto) {
+    return this.baseService.post(
+      `${this.path}/ingredient`,
+      addIngredientToRecipe,
+    );
+  }
+
+  removeIngredient(ingredientId: number) {
+    return this.baseService.delete(ingredientId, `${this.path}/ingredient`);
+  }
 }

@@ -28,26 +28,6 @@ export class InitialMigration1668230366439 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "conversion_unit1_unit" ADD CONSTRAINT "FK_d8b939633badd32e278bc1763e3" FOREIGN KEY ("unitId") REFERENCES "unit"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "conversion_unit2_unit" ADD CONSTRAINT "FK_2888db831a3dcafbe01f6e7cddb" FOREIGN KEY ("conversionId") REFERENCES "conversion"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "conversion_unit2_unit" ADD CONSTRAINT "FK_51c87b6385fa3650f35cc1a13d4" FOREIGN KEY ("unitId") REFERENCES "unit"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
-      // Create bootstrap user
-      // Login: `parker@somegreatapp.com`
-      // Password: `password`
-      await queryRunner.query(`INSERT INTO public.user (id, email, password, salt)
-                                 VALUES (DEFAULT, 'parker@bakebox.app',
-                                         '349d9d90ea62556d5df416fb91fac3d7dbc9461163f1e4df13a0f5d31e61e0abf39d8c36965d8498436967d3f89bcce6bb4bfca6e3679a9f62881bc6e18e2b5c',
-                                         '23da02753f114cdd5099dc1d16df7a84b07bc28bb5d5ce8998b8e3cf51a05d10')`);
-      // Create initial roles
-      await queryRunner.query(`INSERT INTO public.role (id, name, description) VALUES (DEFAULT, 'superadmin', 'super administrators')`);
-      await queryRunner.query(`INSERT INTO public.role (id, name, description) VALUES (DEFAULT, 'admin', 'administrators')`);
-      await queryRunner.query(`INSERT INTO public.role (id, name, description) VALUES (DEFAULT, 'guest', 'guest account')`);
-      // Setting our bootstrap user to be a super admin
-      await queryRunner.query(`INSERT INTO public.user_roles_role ("userId", "roleId") VALUES (1, 1)`,);
-      // Adding some initial units for everyone to utilize
-      await queryRunner.query(`INSERT INTO public.unit (name, description, abbr, type, global) VALUES ('Ounce', '', 'oz', 'weight', true)`,);
-      await queryRunner.query(`INSERT INTO public.unit (name, description, abbr, type, global) VALUES ('Fluid Ounce', '', 'fl oz', 'weight', true)`,);
-      await queryRunner.query(`INSERT INTO public.unit (name, description, abbr, type, global) VALUES ('Gram', '', 'g', 'weight', true)`,);
-      await queryRunner.query(`INSERT INTO public.unit (name, description, abbr, type, global) VALUES ('Cup', '', 'cup', 'volume', true)`,);
-      await queryRunner.query(`INSERT INTO public.unit (name, description, abbr, type, global) VALUES ('Tablespoon', '', 'tbsp', 'volume', true)`,);
-      await queryRunner.query(`INSERT INTO public.unit (name, description, abbr, type, global) VALUES ('Teaspoon', '', 'tsp', 'volume', true)`,);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
@@ -62,18 +42,6 @@ export class InitialMigration1668230366439 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "conversion" DROP CONSTRAINT "FK_2d7bfe2757cf9e1640b2c123143"`);
         await queryRunner.query(`ALTER TABLE "ingredient" DROP CONSTRAINT "FK_11a0f49f7c7b2153e122a306609"`);
         await queryRunner.query(`ALTER TABLE "ingredient" DROP CONSTRAINT "FK_d621784b59b05016938180fb3bb"`);
-        // Remove initial seed data
-        // Adding some initial units for everyone to utilize
-        await queryRunner.query(`DELETE FROM public.unit WHERE name = 'Ounce'`);
-        await queryRunner.query(`DELETE FROM public.unit WHERE name = 'Fluid Ounce'`);
-        await queryRunner.query(`DELETE FROM public.unit WHERE name = 'Gram'`);
-        await queryRunner.query(`DELETE FROM public.unit WHERE name = 'Cup'`);
-        await queryRunner.query(`DELETE FROM public.unit WHERE name = 'Tablespoon'`);
-        await queryRunner.query(`DELETE FROM public.unit WHERE name = 'Teaspoon'`);
-        await queryRunner.query(`DELETE FROM public.user_roles_role WHERE "userId" = 1 AND "roleId" = 1`);
-        await queryRunner.query(`DELETE FROM public.role WHERE name = 'superadmin'`);
-        await queryRunner.query(`DELETE FROM public.role WHERE name = 'admin'`);
-        await queryRunner.query(`DELETE FROM public.role WHERE name = 'guest'`);
         // Drop indexes and tables
         await queryRunner.query(`DROP INDEX "public"."IDX_51c87b6385fa3650f35cc1a13d"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_2888db831a3dcafbe01f6e7cdd"`);

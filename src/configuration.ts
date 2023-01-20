@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
-
-dotenv.config();
+const cfg_path = process.env.NODE_ENV === 'production' ? '.env.prd' : '.env'
+dotenv.config({
+  path: cfg_path,
+});
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 1337,
   database: {

@@ -6,14 +6,12 @@ import { AppComponent } from './app.component';
 import { LoginPage } from './pages/login/login.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HomePage } from './pages/home/home.page';
-import { LowIngredientsComponent } from './components/widgets/low-ingredients/low-ingredients.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesModule } from './services/services.module';
 import { NavigationModule } from './components/navigation/navigation.module';
 
 @NgModule({
-  declarations: [AppComponent, LoginPage, HomePage, LowIngredientsComponent],
+  declarations: [AppComponent, LoginPage],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -25,5 +23,6 @@ import { NavigationModule } from './components/navigation/navigation.module';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

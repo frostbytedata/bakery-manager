@@ -10,7 +10,6 @@ import {
 } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { Observable } from 'rxjs';
-import { HomePage } from './pages/home/home.page';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
 const routes: Routes = [
@@ -25,8 +24,8 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        title: 'Home',
-        component: HomePage,
+        loadChildren: () =>
+          import('./pages/home/home.page.module').then((m) => m.HomePageModule),
       },
       {
         path: 'recipes',
@@ -41,11 +40,6 @@ const routes: Routes = [
           import('./pages/ingredients/ingredients.page.module').then(
             (m) => m.IngredientsPageModule,
           ),
-      },
-      {
-        path: 'conversions',
-        title: 'Conversions',
-        component: HomePage,
       },
     ],
   },

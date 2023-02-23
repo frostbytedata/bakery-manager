@@ -1,89 +1,101 @@
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
-  <div class="bm-widget-container flex-col gap-4 p-6">
-    <div class="flex w-full flex-row items-center">
-      <i
-        (click)="goToRecipesPage()"
-        class="bi-arrow-left-circle mr-2 shrink cursor-pointer text-3xl transition duration-100 ease-in-out hover:scale-[1.01]"></i>
-      <h3 class="shrink px-1 text-3xl">
-        {{mode === 'edit' ? this.form.get('name')?.value : 'New Recipe'}}
-      </h3>
-    </div>
-    <form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
-      <div>
-        Name
-        <input
-          id="name"
-          type="text"
-          placeholder="Ingredient Name"
-          formControlName="name" />
-      </div>
-      <div>
-        Description
-        <textarea
-          id="description"
-          type="text"
-          placeholder="Description"
-          formControlName="description"></textarea>
-      </div>
-      <div class="flex flex-row items-center justify-between gap-4">
-        <div class="w-full">
-          <label for="retailPrice">Retail Price</label>
-          <input
-            id="retailPrice"
-            type="decimal"
-            [inputMask]="currencyMask"
-            placeholder="$ 0.00"
-            formControlName="retailPrice" />
-        </div>
-        <div class="w-full">
-          <label for="wholesalePrice">Wholesale Price</label>
-          <input
-            id="wholesalePrice"
-            type="decimal"
-            [inputMask]="currencyMask"
-            placeholder="$ 0.00"
-            formControlName="wholesalePrice" />
-        </div>
-      </div>
-    </form>
+<div class="grid grid-flow-row auto-rows-max gap-4">
+  <div class="grid grid-cols-1 gap-4 xl:grid-cols-3">
+    <bm-stat-box icon="bi-currency-dollar" [statValue]="stats.cost | number: '0.2-2'" desc="Recipe Cost" colorClass="text-bm-error"></bm-stat-box>
+    <bm-stat-box icon="bi-cash-coin" [statValue]="stats.retailProfit | number: '0.2-2'" desc="Retail Profit" colorClass="text-bm-green"></bm-stat-box>
+    <bm-stat-box icon="bi-cash-stack" [statValue]="stats.wholesaleProfit | number: '0.2-2'" desc="Wholesale Profit"></bm-stat-box>
   </div>
-  <div *ngIf="mode !== 'new'" class="bm-widget-container flex flex-col gap-4 p-6">
-    <div class="flex flex-row justify-between items-center">
-      <h3 class="text-3xl px-1">Ingredient List</h3>
-      <bm-button (bmClick)="addIngredient($event)" icon="bi-plus-circle">Add Ingredient</bm-button>
+  <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+    <div class="bm-widget-container flex-col gap-4 p-6">
+      <div class="flex w-full flex-row items-center">
+        <i
+          (click)="goToRecipesPage()"
+          class="bi-arrow-left-circle mr-2 shrink cursor-pointer text-3xl transition duration-100 ease-in-out hover:scale-[1.01]"></i>
+        <h3 class="shrink px-1 text-3xl">
+          {{mode === 'edit' ? this.form.get('name')?.value : 'New Recipe'}}
+        </h3>
+      </div>
+      <form class="grid grid-flow-row auto-rows-max gap-4" [formGroup]="form">
+        <div>
+          Name
+          <input
+            id="name"
+            type="text"
+            placeholder="Ingredient Name"
+            formControlName="name" />
+        </div>
+        <div>
+          Description
+          <textarea
+            id="description"
+            type="text"
+            placeholder="Description"
+            formControlName="description"></textarea>
+        </div>
+        <div class="flex flex-row items-center justify-between gap-4">
+          <div class="w-full">
+            <label for="retailPrice">Retail Price</label>
+            <input
+              id="retailPrice"
+              type="decimal"
+              [inputMask]="currencyMask"
+              placeholder="$ 0.00"
+              formControlName="retailPrice" />
+          </div>
+          <div class="w-full">
+            <label for="wholesalePrice">Wholesale Price</label>
+            <input
+              id="wholesalePrice"
+              type="decimal"
+              [inputMask]="currencyMask"
+              placeholder="$ 0.00"
+              formControlName="wholesalePrice" />
+          </div>
+        </div>
+      </form>
     </div>
-    <table class="table-auto" [class.animate-pulse]="this.loading">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Quantity</th>
-        <th>Cost</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngIf="this.form.get('ingredients')?.value?.length <= 0">
-        <td class="text-center" colspan="4">No Ingredients 😓</td>
-      </tr>
-      <tr
-        class="transition duration-100 ease-in-out hover:scale-[1.01]"
-        *ngFor="let ingredient of this.form.get('ingredients')?.value">
-        <td>{{ingredient.ingredient.name}}</td>
-        <td>{{ingredient.ingredient.description}}</td>
-        <td>
-          {{ingredient.quantity}} {{ingredient.unit.abbr}}{{ingredient.quantity > 1 ? '(s)' : ''}}
-        </td>
-        <td>
-          {{ingredient.quantity * ingredient.ingredient.cost | currency}}
-        </td>
-        <td>
-          <i
-            (click)="removeIngredient(ingredient)"
-            class="bi-trash3 mr-2 shrink cursor-pointer text-xl text-bm-error transition duration-100 ease-in-out hover:scale-[1.01]"></i>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div
+      *ngIf="mode !== 'new'"
+      class="bm-widget-container flex flex-col gap-4 p-6">
+      <div class="flex flex-row items-center justify-between">
+        <h3 class="px-1 text-3xl">Ingredient List</h3>
+        <bm-button (bmClick)="addIngredient($event)" icon="bi-plus-circle"
+          >Add Ingredient</bm-button
+        >
+      </div>
+      <table class="table-auto" [class.animate-pulse]="this.loading">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="this.form.get('ingredients')?.value?.length <= 0">
+            <td class="text-center" colspan="4">No Ingredients 😓</td>
+          </tr>
+          <tr
+            class="transition duration-100 ease-in-out hover:scale-[1.01]"
+            *ngFor="let ingredient of this.form.get('ingredients')?.value">
+            <td>{{ingredient.ingredient.name}}</td>
+            <td>{{ingredient.ingredient.description}}</td>
+            <td>
+              {{ingredient.quantity}}
+              {{ingredient.unit.abbr}}{{ingredient.quantity > 1 ? '(s)' : ''}}
+            </td>
+            <td>
+              {{ingredient.quantity * ingredient.ingredient.cost | currency}}
+            </td>
+            <td>
+              <i
+                (click)="removeIngredient(ingredient)"
+                class="bi-trash3 mr-2 shrink cursor-pointer text-xl text-bm-error transition duration-100 ease-in-out hover:scale-[1.01]"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

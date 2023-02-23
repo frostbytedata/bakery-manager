@@ -14,6 +14,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectIngredientDialogService } from '../../../components/select-ingredient/select-ingredient.dialog.service';
 import { Ingredient } from '../../../models/ingredient.model';
 import { HttpResponse } from '@angular/common/http';
+
+interface RecipeStats {
+  cost: number;
+  retailProfit: number;
+  wholesaleProfit: number;
+}
+
 @Component({
   selector: 'bm-recipe',
   templateUrl: './recipe.page.html',
@@ -22,6 +29,11 @@ import { HttpResponse } from '@angular/common/http';
 export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
   form: FormGroup = new FormGroup<any>([]);
   _loading = false;
+  stats: RecipeStats = {
+    cost: 0,
+    retailProfit: 0,
+    wholesaleProfit: 0,
+  };
   public get loading() {
     return this._loading;
   }
@@ -75,6 +87,7 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
                 { emitEvent: false },
               );
               this.loading = false;
+              this.computeStats();
             },
           });
       }
@@ -134,6 +147,7 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
       .subscribe({
         next: (result) => {
           this.sb.open('Saved 💾', '', { duration: 2000 });
+          this.computeStats();
           this.loading = false;
           this.router.navigate(['recipes/' + result.body.id]);
         },
@@ -165,6 +179,7 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
                 const ingredientsCtrl = this.form.get('ingredients');
                 const ingredients = ingredientsCtrl?.value.concat(resp?.body);
                 ingredientsCtrl?.setValue(ingredients);
+                this.computeStats();
                 this.loading = false;
               },
               error: () => (this.loading = false),
@@ -196,5 +211,18 @@ export class RecipePage extends UnsubscribeOnDestroyAdapter implements OnInit {
         },
         error: () => (this.loading = false),
       });
+  }
+
+  computeStats() {
+    const cost = Number(
+      this.form
+        .get('ingredients')
+        ?.value?.reduce((acc: any, val: any) => acc + val.ingredient.cost, 0),
+    );
+    this.stats = {
+      cost: cost,
+      retailProfit: Number(this.form.get('retailPrice')?.value) - cost,
+      wholesaleProfit: Number(this.form.get('wholesalePrice')?.value) - cost,
+    };
   }
 }

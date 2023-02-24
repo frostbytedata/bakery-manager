@@ -1,0 +1,67 @@
+<div class="grid grid-flow-row auto-rows-max gap-4">
+  <div class="grid grid-cols-1 gap-4 xl:grid-cols-3">
+    <bm-stat-box icon="bi-box-seam" [statValue]="stats.inventoryTotalValue | currency" desc="Total Inventory Value" colorClass="text-bm-green"></bm-stat-box>
+    <bm-stat-box icon="bi-clipboard-data" [statValue]="stats.itemsOnHand | number: '1.0'" desc="Items on Hand" colorClass="text-bm-dark_type"></bm-stat-box>
+    <bm-stat-box icon="bi-exclamation" [statValue]="stats.numberLowIngredients | number: '1.0'" desc="Number of Low Ingredients" colorClass="text-bm-error"></bm-stat-box>
+  </div>
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+    <div class="col-span-1">
+      <div class="bm-widget-container flex flex-col gap-4 p-6">
+        <div class="flex flex-row justify-between items-center">
+          <h3 class="text-3xl px-1">Recipe List</h3>
+          <bm-button (bmClick)="goToRecipe($event, 'new')" icon="bi-plus-circle">Add Recipe</bm-button>
+        </div>
+        <table class="table-auto" [class.animate-pulse]="this.loading">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Retail Sale Price</th>
+            <th>Wholesale Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngIf="recipes.length <= 0">
+            <td class="text-center" colspan="4">No Recipes 😓</td>
+          </tr>
+          <tr class="hover:cursor-pointer hover:scale-[1.01] transition ease-in-out duration-100" *ngFor="let recipe of recipes" (click)="goToRecipe($event, recipe.id)">
+            <td>{{recipe.name}}</td>
+            <td>{{recipe.description}}</td>
+            <td>{{recipe.retailPrice | currency}}</td>
+            <td>{{recipe.wholesalePrice | currency}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-span-1">
+      <div class="bm-widget-container flex flex-col gap-4 p-6">
+        <div class="flex flex-row justify-between items-center">
+          <h3 class="text-3xl px-1">Ingredient List</h3>
+          <bm-button (bmClick)="openEditModal($event)" icon="bi-plus-circle">Add Ingredient</bm-button>
+        </div>
+        <table class="table-auto" [class.animate-pulse]="this.loading">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Unit</th>
+            <th>Cost</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngIf="ingredients.length <= 0">
+            <td class="text-center" colspan="4">No Ingredients 😓</td>
+          </tr>
+          <tr (click)="openEditModal($event, ingredient)" class="hover:cursor-pointer hover:scale-[1.01] transition ease-in-out duration-100" *ngFor="let ingredient of ingredients">
+            <td>{{ingredient.name}}</td>
+            <td>{{ingredient.description}}</td>
+            <td>{{ingredient.defaultUnit.name}}s ({{ingredient.defaultUnit.abbr}})</td>
+            <td>{{ingredient.cost | currency}} per {{ingredient.defaultUnit.abbr}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,6 +19,11 @@ export class NavigationComponent implements OnInit {
       route: '/home',
     },
     {
+      label: 'Inventory',
+      icon: 'bi-box-seam',
+      route: '/inventory',
+    },
+    {
       label: 'Recipes',
       icon: 'bi-card-checklist',
       route: '/recipes',
@@ -28,11 +33,11 @@ export class NavigationComponent implements OnInit {
       icon: 'bi-egg',
       route: '/ingredients',
     },
-    {
-      label: 'Conversions',
-      icon: 'bi-repeat',
-      route: '/conversions',
-    },
+    // {
+    //   label: 'Conversions',
+    //   icon: 'bi-repeat',
+    //   route: '/conversions',
+    // },
   ];
   constructor() {}
 

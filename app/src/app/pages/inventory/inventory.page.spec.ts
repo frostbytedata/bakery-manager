@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddIngredientDialog } from './add-ingredient.dialog';
+import { InventoryPage } from './inventory.page';
 
-describe('AddIngredientDialogComponent', () => {
-  let component: AddIngredientDialog;
-  let fixture: ComponentFixture<AddIngredientDialog>;
+describe('HomePage', () => {
+  let component: InventoryPage;
+  let fixture: ComponentFixture<InventoryPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddIngredientDialog],
+      declarations: [InventoryPage],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddIngredientDialog);
+    fixture = TestBed.createComponent(InventoryPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

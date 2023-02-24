@@ -28,6 +28,13 @@ const routes: Routes = [
           import('./pages/home/home.page.module').then((m) => m.HomePageModule),
       },
       {
+        path: 'inventory',
+        loadChildren: () =>
+          import('./pages/inventory/inventory.page.module').then(
+            (m) => m.InventoryPageModule,
+          ),
+      },
+      {
         path: 'recipes',
         loadChildren: () =>
           import('./pages/recipes/recipes.page.module').then(

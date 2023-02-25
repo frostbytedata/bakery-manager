@@ -39,14 +39,24 @@ export class NavigationComponent implements OnInit, AfterContentChecked {
           route: '/inventory/overview',
         },
         {
+          label: 'Production',
+          icon: 'bi-cup-hot',
+          route: '/inventory/production',
+        },
+        {
+          label: 'Purchase Batches',
+          icon: 'bi-tags',
+          route: '/inventory/batches',
+        },
+        {
+          label: 'Shrinkage',
+          icon: 'bi-cart-x',
+          route: '/inventory/shrinkage',
+        },
+        {
           label: 'Ingredients',
           icon: 'bi-egg',
           route: '/inventory/ingredients',
-        },
-        {
-          label: 'Lots',
-          icon: 'bi-cart2',
-          route: '/inventory/lots',
         },
       ],
     },

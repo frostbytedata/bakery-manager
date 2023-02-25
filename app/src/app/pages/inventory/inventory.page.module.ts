@@ -11,7 +11,24 @@ const routes: Routes = [
   {
     path: '',
     title: 'Inventory',
-    component: InventoryPage,
+    children: [
+      {
+        path: '',
+        component: InventoryPage,
+      },
+      {
+        path: 'overview',
+        component: InventoryPage,
+      },
+      {
+        path: 'lots',
+        component: InventoryPage,
+      },
+      {
+        path: 'ingredients',
+        component: InventoryPage,
+      },
+    ],
   },
 ];
 

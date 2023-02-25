@@ -1,18 +1,32 @@
 <div class="flex h-full w-full flex-row">
-  <nav class="flex bg-bm-background_light py-14 drop-shadow-md">
+  <nav class="z-10 flex bg-bm-background_light py-14 drop-shadow-md">
     <ul>
       <li
-        class="my-4 mb-12 flex flex-row items-center justify-items-center px-6 lg:px-14">
+        class="my-4 mb-12 flex flex-row items-center justify-items-center px-6 lg:px-14 h-20">
         <img src="assets/logo.svg" class="w-20 lg:w-40 flex-1 hidden lg:inline-block" />
         <h2 class="flex-1 text-2xl visible lg:hidden">BM</h2>
       </li>
-      <li *ngFor="let item of menuItems" [matTooltip]="item.label">
+      <li class="h-14" *ngFor="let item of menuItems" [matTooltip]="item.label">
         <a
           class="flex h-full flex-row items-center justify-center lg:justify-start px-4 lg:px-14 py-4 hover:bg-bm-background_active_fadednahoe"
           [routerLink]="item.route"
           routerLinkActive="bg-bm-background_active hover:bg-bm-background_active">
           <i class="{{ item.icon }} flex lg:mr-6 text-2xl"></i>
           <span class="hidden lg:inline-block">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav class="flex bg-bm-background_light_contrast py-14 drop-shadow-xl" *ngIf="subMenu.length > 0">
+    <ul>
+      <li class="h-20 my-4 mb-12 px-2 lg:px-8 h-20"></li>
+      <li class="h-14" *ngFor="let item of subMenu" [matTooltip]="item.label">
+        <a
+          class="flex h-full flex-row items-center justify-center lg:justify-start px-2 lg:px-4 py-4 hover:bg-bm-background_active_fadednahoe"
+          [routerLink]="item.route"
+          routerLinkActive="bg-bm-background_active hover:bg-bm-background_active">
+          <i class="{{ item.icon }} flex lg:mr-4 text-sm"></i>
+          <span class="hidden lg:inline-block text-sm">{{ item.label }}</span>
         </a>
       </li>
     </ul>

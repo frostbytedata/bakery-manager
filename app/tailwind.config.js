@@ -18,6 +18,7 @@ module.exports = {
         'bm-offwhite': '#f3f3f3',
         'bm-outline_highlight': '#ffd5a2',
         'bm-background_light': '#f4f1de',
+        'bm-background_light_contrast': '#f5eed7cc',
         'bm-background_active': '#e7be886e',
         'bm-background_active_fadednahoe': 'rgba(231,190,136,0.2)',
         'bm-background_alt': 'rgba(199,141,111,0.56)',

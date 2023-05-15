@@ -72,23 +72,7 @@ export class LoginPage extends UnsubscribeOnDestroyAdapter implements OnInit {
     this.subs.add(
       this.loginMode$?.subscribe((loginMode: boolean) => {
         if (loginMode) {
-          this.subs.add(
-            this.userService.login(this.userForm.value).subscribe({
-              error: (err: HttpErrorResponse) => {
-                if (err.status.toString().startsWith('4')) {
-                  this.errorMessage = 'Invalid Login';
-                }
-                if (err.status.toString().startsWith('5')) {
-                  this.errorMessage = 'Something went wrong 🙁';
-                }
-                this.loading = false;
-              },
-              complete: () => {
-                this.errorMessage = '';
-                this.loading = false;
-              },
-            }),
-          );
+          this.logUserIn(this.userForm.value);
         } else {
           if (this.userForm.get('name')?.value === '') {
             impliedName = (this.userForm.get('email')?.value as string).split(
@@ -98,8 +82,36 @@ export class LoginPage extends UnsubscribeOnDestroyAdapter implements OnInit {
               name: impliedName,
             });
           }
-          this.userService.register(this.userForm.value);
+          this.loading = true;
+          this.userService.register(this.userForm.value).subscribe({
+            next: (res: HttpResponse<any>) => {
+              this.logUserIn(this.userForm.value);
+            },
+            error: (err: HttpErrorResponse) => {
+              this.errorMessage = err.message;
+            },
+          });
         }
+      }),
+    );
+  }
+
+  logUserIn(payload: any) {
+    this.subs.add(
+      this.userService.login(payload).subscribe({
+        error: (err: HttpErrorResponse) => {
+          if (err.status.toString().startsWith('4')) {
+            this.errorMessage = 'Invalid Login';
+          }
+          if (err.status.toString().startsWith('5')) {
+            this.errorMessage = 'Something went wrong 🙁';
+          }
+          this.loading = false;
+        },
+        complete: () => {
+          this.errorMessage = '';
+          this.loading = false;
+        },
       }),
     );
   }

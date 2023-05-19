@@ -6,7 +6,7 @@ phases:
       nodejs: 16
     commands:
       - echo $CODEBUILD_SRC_DIR
-      - # Install NestJS cli so we can ng build
+      - # Install NestJS and Angular cli so we can build both
       - npm install -g @nestjs/cli
       - npm install -g @angular/cli
   pre_build:
@@ -14,14 +14,18 @@ phases:
       - # Update our node_modules for the api project.
       - # Don't need to audit here, as we audit on workstation client
       - npm install --no-audit
+      - # Move into our frontend directory
       - cd app
+      - # Install frontend node_modules
       - npm install --no-audit
   build:
     commands:
-      - # Build the Angular UI with dev settings
+      - # Build the backend
       - npm run build
+      - # Move into our frontend directory
       - cd app
-      - npm run build
+      - # Build the Angular UI with prod settings
+      - npm run build-prod
   post_build:
     commands:
       - echo No post_build steps for now...

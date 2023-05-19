@@ -17,9 +17,7 @@ async function bootstrap() {
   // Get config service
   const configService = app.get(ConfigService);
   // Configure CORS
-  app.enableCors({
-    origin: JSON.parse(configService.get('allowableOrigins')) || [],
-  });
+  app.enableCors(configService.get('cors'));
   // Ensure all routes validate incoming data by default
   app.useGlobalPipes(
     new ValidationPipe({

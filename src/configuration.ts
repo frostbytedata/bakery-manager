@@ -5,6 +5,9 @@ dotenv.config({
 });
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 1337,
+  cors: {
+    origin: JSON.parse(process.env.CORS_ORIGINS),
+  },
   database: {
     url: process.env.DATABASE_URL,
     type: process.env.DATABASE_TYPE,
@@ -17,7 +20,6 @@ export default () => ({
     migrations: ['dist/migration/*.js'],
     subscribers: ['dist/subscriber/*.js'],
   },
-  allowableOrigins: process.env.ALLOWABLE_ORIGINS,
   jwt: {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRY,

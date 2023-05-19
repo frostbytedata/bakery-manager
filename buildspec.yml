@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo $CODEBUILD_SRC_DIR
+      - # Install NestJS cli so we can ng build
+      - npm install -g @nestjs/cli
+      - npm install -g @angular/cli
+  pre_build:
+    commands:
+      - # Update our node_modules for the api project.
+      - # Don't need to audit here, as we audit on workstation client
+      - npm install --no-audit
+      - cd app
+      - npm install --no-audit
+  build:
+    commands:
+      - # Build the Angular UI with dev settings
+      - npm run build
+      - cd app
+      - npm run build
+  post_build:
+    commands:
+      - echo No post_build steps for now...
+artifacts:
+  files:
+    - 'dist/**/*'
+    - 'node_modules/**/*'
+    - 'package.json'
+    - 'Procfile'

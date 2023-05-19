@@ -12,12 +12,16 @@ import { DatabaseModule } from './database.module';
 import { IngredientModule } from './ingredients/ingredient.module';
 import { RecipeModule } from './recipes/recipe.module';
 import { UnitModule } from './units/unit.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
       expandVariables: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: '../public',
     }),
     DatabaseModule,
     UsersModule,

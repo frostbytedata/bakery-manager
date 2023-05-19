@@ -5,7 +5,7 @@ import path from 'path';
 const commandDescription =
   'Picks up configs from configuration.ts and uses typeorm to generate migrations';
 
-const argv = yargs
+const argv: any = yargs
   .usage('Usage: $0 <command> [options]')
   .command('migrate', commandDescription)
   .example(

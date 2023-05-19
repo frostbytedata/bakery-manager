@@ -13,6 +13,7 @@ import { IngredientModule } from './ingredients/ingredient.module';
 import { RecipeModule } from './recipes/recipe.module';
 import { UnitModule } from './units/unit.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       expandVariables: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: '/public',
+      rootPath: join(__dirname, '..', 'public'),
     }),
     DatabaseModule,
     UsersModule,

@@ -20,9 +20,11 @@ phases:
       - npm install --no-audit
   build:
     commands:
+      - # Move up one directory to our root
+      - cd ../
       - # Build the backend
       - npm run build
-      - # Move into our frontend directory
+      - # Move back into our frontend directory
       - cd app
       - # Build the Angular UI with prod settings
       - npm run build-prod

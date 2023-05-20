@@ -1,6 +1,6 @@
 
 ###
-POST http://localhost:1337/auth/login
+POST {{url}}/auth/login
 Accept: application/json
 Content-Type: application/json
 

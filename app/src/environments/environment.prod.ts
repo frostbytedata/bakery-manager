@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:80',
+  apiUrl: 'http://bakerymanager.us-east-1.elasticbeanstalk.com/',
 };

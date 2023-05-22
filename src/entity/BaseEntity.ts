@@ -21,15 +21,15 @@ export class BaseEntity {
   @IsBoolean()
   global: boolean;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn({ type: 'timestamptz' })
   @IsDate()
   updatedAt: Date;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn({ type: 'timestamptz' })
   @IsDate()
   createdAt: Date;
 
-  @DeleteDateColumn({ type: 'timestamp' })
+  @DeleteDateColumn({ type: 'timestamptz' })
   @IsDate()
   deletedAt: Date;
 }

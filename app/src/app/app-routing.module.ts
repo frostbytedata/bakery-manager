@@ -1,13 +1,5 @@
 import { Injectable, NgModule } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanLoad,
-  Route,
-  RouterModule,
-  RouterStateSnapshot,
-  Routes,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Route, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
 import { Observable } from 'rxjs';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -69,7 +61,7 @@ const routes: Routes = [
 @Injectable({
   providedIn: 'root',
 })
-export class LoggedInGuard implements CanActivate, CanLoad {
+export class LoggedInGuard  {
   constructor() {}
 
   canActivate(

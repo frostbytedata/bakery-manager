@@ -5,13 +5,15 @@
   </div>
   <div class="flex flex-row gap-4">
     <div class="flex-auto">
-      <input type="text w-auto"
-             class="text-center"
-             placeholder="Search for an ingredient..."
-             aria-label="Ingredient"
-             matInput
-             formControlName="ingredient"
-             [matAutocomplete]="auto">
+      <mat-form-field>
+        <input type="text w-auto"
+               class="text-center"
+               placeholder="Search for an ingredient..."
+               aria-label="Ingredient"
+               matInput
+               formControlName="ingredient"
+               [matAutocomplete]="auto">
+      </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="ingredientDisplay">
         <mat-option class="text-center" *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
           {{ingredient.name}}
@@ -19,12 +21,14 @@
       </mat-autocomplete>
     </div>
     <div class="flex-auto" *ngIf="form.get('ingredient')?.valid">
-      <input type="text"
-             class="text-center"
-             placeholder="Quantity"
-             aria-label="Quantity of Ingredient"
-             matInput
-             formControlName="quantity">
+      <mat-form-field>
+        <input type="text"
+               class="text-center"
+               placeholder="Quantity"
+               aria-label="Quantity of Ingredient"
+               matInput
+               formControlName="quantity">
+      </mat-form-field>
     </div>
     <div class="flex-auto" *ngIf="form.get('ingredient')?.valid">
       <select

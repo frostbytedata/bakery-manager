@@ -1,11 +1,16 @@
+import { BehaviorSubject } from 'rxjs';
+
 export class BaseStore {
   protected readonly _data: any = {};
-  public get data() {
-    return this._data;
-  }
+  private readonly _event: BehaviorSubject<any>;
 
   constructor(data: any) {
     this._data = data;
+    this._event = new BehaviorSubject<any>(this._data);
+  }
+
+  public get data() {
+    return this._data;
   }
 
   modify(propertyName: string, newValue: any) {
@@ -17,6 +22,11 @@ export class BaseStore {
       } else {
         this._data[propertyName] = Object.assign({}, newValue);
       }
+      this._event.next(this._data);
     }
+  }
+
+  subscribe() {
+    return this._event;
   }
 }

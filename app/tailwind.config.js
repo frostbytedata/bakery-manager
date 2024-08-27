@@ -26,8 +26,8 @@ module.exports = {
         'bm-accent': '#5b8aa9',
       },
       fontFamily: {
-        sans: ['Fuzzy Bubbles'],
-        fuzzy_bubbles: ['Fuzzy Bubbles'],
+        sans: ['Montserrat'],
+        montserrat: ['Montserrat'],
       },
       height: {
         128: '32rem', // 512px

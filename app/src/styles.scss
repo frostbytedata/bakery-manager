@@ -5,6 +5,7 @@
 
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -29,7 +30,7 @@ $app-theme: mat.m2-define-light-theme((
     warn: $app-warn,
   ),
   typography: mat.m2-define-typography-config(
-    $font-family: "Fuzzy Bubbles",
+    $font-family: "Montserrat",
   ),
 ));
 

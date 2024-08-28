@@ -73,23 +73,23 @@ html, body {
 }
 
 table {
-  @apply w-full rounded-3xl border-separate overflow-hidden border-spacing-0 border border-bm-brown/25;
+  @apply w-full rounded-3xl text-sm border-separate overflow-hidden border-spacing-0 border border-bm-brown/25;
 }
 
 table thead {
-  @apply bg-bm-background_active h-12;
+  @apply bg-bm-background_active h-4;
 }
 table thead tr {
   @apply text-left;
 }
 table thead tr th {
-  @apply p-4;
+  @apply px-4 py-2;
 }
 table tbody tr {
   @apply odd:bg-gray-200/75 even:bg-gray-100;
 }
 table tbody tr td {
-  @apply p-4;
+  @apply px-4 py-2;
 }
 
 .bm-border-outline {

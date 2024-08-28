@@ -2,13 +2,13 @@
   <nav class="z-10 flex bg-bm-background_light py-14 drop-shadow-md">
     <ul>
       <li
-        class="my-4 mb-12 flex flex-row items-center justify-items-center px-6 lg:px-14 h-20">
+        class="my-4 mb-12 flex flex-row items-center justify-items-center px-6 lg:px-10 h-20">
         <img src="assets/logo.svg" class="w-20 lg:w-40 flex-1 hidden lg:inline-block" />
         <h2 class="flex-1 text-2xl visible lg:hidden">BM</h2>
       </li>
       <li class="h-14" *ngFor="let item of menuItems" [matTooltip]="item.label">
         <a
-          class="flex h-full flex-row items-center justify-center lg:justify-start px-4 lg:px-14 py-4 hover:bg-bm-background_active_fadednahoe"
+          class="flex h-full flex-row items-center justify-center lg:justify-start px-4 lg:px-6 py-4 hover:bg-bm-background_active_fadednahoe"
           [routerLink]="item.route"
           routerLinkActive="bg-bm-background_active hover:bg-bm-background_active">
           <i class="{{ item.icon }} flex lg:mr-6 text-2xl"></i>
@@ -25,7 +25,7 @@
           class="flex h-full flex-row items-center justify-center lg:justify-start px-2 lg:px-4 py-4 hover:bg-bm-background_active_fadednahoe"
           [routerLink]="item.route"
           routerLinkActive="bg-bm-background_active hover:bg-bm-background_active">
-          <i class="{{ item.icon }} flex lg:mr-4 text-sm"></i>
+          <i class="{{ item.icon }} flex lg:mr-4 lg:ml-2 text-sm"></i>
           <span class="hidden lg:inline-block text-sm">{{ item.label }}</span>
         </a>
       </li>

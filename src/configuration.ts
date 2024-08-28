@@ -1,12 +1,14 @@
 import * as dotenv from 'dotenv';
 const cfg_path = process.env.NODE_ENV === 'production' ? '.env.prd' : '.env'
+const csvToArray = (csv: string): string[] =>
+  csv.split(',').map((value) => value.trim());
 dotenv.config({
   path: cfg_path,
 });
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 1337,
   cors: {
-    origin: JSON.parse(process.env.CORS_ORIGINS),
+    origin: csvToArray(process.env.CORS_ORIGINS),
   },
   database: {
     url: process.env.DATABASE_URL,

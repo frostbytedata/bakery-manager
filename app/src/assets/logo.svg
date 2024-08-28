@@ -3,39 +3,12 @@
 
 <svg
    width="140.33833mm"
-   height="54.053017mm"
-   viewBox="0 0 140.33833 54.053017"
+   height="54.097046mm"
+   viewBox="0 0 140.33833 54.097046"
    version="1.1"
    id="svg5"
-   sodipodi:docname="logo.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview7"
-     pagecolor="#505050"
-     bordercolor="#eeeeee"
-     borderopacity="1"
-     inkscape:pageshadow="0"
-     inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="0"
-     inkscape:document-units="mm"
-     showgrid="false"
-     inkscape:zoom="1.0405163"
-     inkscape:cx="512.72624"
-     inkscape:cy="324.83874"
-     inkscape:window-width="2560"
-     inkscape:window-height="1377"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0" />
   <defs
      id="defs2">
     <rect
@@ -46,33 +19,31 @@
        id="rect3751" />
   </defs>
   <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-34.83083,-123.18354)">
     <path
        id="rect846"
        style="fill:none;stroke:#3c3c3c;stroke-width:1.194;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 76.252569,173.21946 H 35.42783 v -49.43892 h 139.14434 v 49.43892 h -41.67526"
-       sodipodi:nodetypes="cccccc" />
+       d="M 76.252569,173.21946 H 35.42783 v -49.43892 h 139.14434 v 49.43892 h -41.67526" />
     <text
        xml:space="preserve"
-       transform="matrix(0.26458333,0,0,0.26458333,-2.3164456,34.923029)"
+       transform="matrix(0.26458333,0,0,0.26458333,10.240927,34.923029)"
        id="text3749"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96px;line-height:1.25;font-family:'Lucida Handwriting';-inkscape-font-specification:'Lucida Handwriting, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect3751);fill:#3c3c3c;fill-opacity:1;stroke:none"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96px;line-height:1.25;font-family:'Lucida Handwriting';-inkscape-font-specification:'Lucida Handwriting, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect3751);display:inline;fill:#3c3c3c;fill-opacity:1;stroke:none"><tspan
          x="210.23047"
-         y="457.0173"
-         id="tspan1048">Bakery</tspan></text>
+         y="460.39648"
+         id="tspan3"><tspan
+           style="font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL, Normal'"
+           id="tspan1">Bakery</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="79.002129"
+       x="79.068848"
        y="177.13072"
        id="text4717"><tspan
-         sodipodi:role="line"
          id="tspan4715"
-         style="fill:#3c3c3c;fill-opacity:1;stroke-width:0.264583"
-         x="79.002129"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#3c3c3c;fill-opacity:1;stroke-width:0.264583"
+         x="79.068848"
          y="177.13072">MANAGER</tspan></text>
   </g>
 </svg>

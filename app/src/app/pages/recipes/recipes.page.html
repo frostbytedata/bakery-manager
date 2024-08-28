@@ -2,7 +2,7 @@
   <div class="col-span-3">
     <div class="bm-widget-container flex flex-col gap-4 p-6">
       <div class="flex flex-row justify-between items-center">
-        <h3 class="text-3xl px-1">Recipe List</h3>
+        <h3 class="text-xl px-1">Recipe List</h3>
         <bm-button (bmClick)="goToRecipe($event, 'new')" icon="bi-plus-circle">Add Recipe</bm-button>
       </div>
       <table class="table-auto" [class.animate-pulse]="this.loading">
@@ -18,7 +18,7 @@
           <tr *ngIf="recipes.length <= 0">
             <td class="text-center" colspan="4">No Recipes 😓</td>
           </tr>
-          <tr class="hover:cursor-pointer hover:scale-[1.01] transition ease-in-out duration-100" *ngFor="let recipe of recipes" (click)="goToRecipe($event, recipe.id)">
+          <tr class="hover:cursor-pointer hover:scale-[1.005] transition ease-in-out duration-100" *ngFor="let recipe of recipes" (click)="goToRecipe($event, recipe.id)">
             <td>{{recipe.name}}</td>
             <td>{{recipe.description}}</td>
             <td>{{recipe.retailPrice | currency}}</td>

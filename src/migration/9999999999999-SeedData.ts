@@ -7,6 +7,7 @@ export class SeedData9999999999999 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     if (
+      false && // Remove this line to insert the seed data
       process.env.NODE_ENV !== 'prd' &&
       process.env.NODE_ENV !== 'production'
     ) {
@@ -170,6 +171,7 @@ export class SeedData9999999999999 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     if (
+      false && // Remove this line to enable the seed data removal
       process.env.NODE_ENV !== 'prd' &&
       process.env.NODE_ENV !== 'production'
     ) {
